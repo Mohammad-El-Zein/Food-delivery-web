@@ -7,7 +7,7 @@ import {
   deleteItemFromCart,
   getCartData,
   removeQtyFromCart,
-} from "../Service/cartService";
+} from "../service/cartService";
 import { useTranslation } from "react-i18next";
 
 export const StoreContext = createContext(null);
