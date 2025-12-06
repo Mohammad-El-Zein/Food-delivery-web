@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import React from "react";
-import { fetchFoodList } from "../Service/foodService";
+import { fetchFoodList } from "../service/foodService";
 import {
   addToCart,
   deleteItemFromCart,
@@ -62,7 +62,7 @@ export const StoreContextProvider = (props) => {
 
   useEffect(() => {
   async function localData() {
-    const data = await fetchFoodList();  // fetchFoodList liest jetzt automatisch die Sprache
+    const data = await fetchFoodList();  
     setFoodList(data);
 
     if (localStorage.getItem("token")) {
@@ -73,7 +73,7 @@ export const StoreContextProvider = (props) => {
   }
 
   localData();
-}, [i18n.language]);     // <-- FIX: neu laden bei Sprachenwechsel
+}, [i18n.language]);     
 
 
   return (
