@@ -61,20 +61,19 @@ export const StoreContextProvider = (props) => {
   };
 
   useEffect(() => {
-  async function localData() {
-    const data = await fetchFoodList();  // fetchFoodList liest jetzt automatisch die Sprache
-    setFoodList(data);
+    async function localData() {
+      const data = await fetchFoodList(); // fetchFoodList liest jetzt automatisch die Sprache
+      setFoodList(data);
 
-    if (localStorage.getItem("token")) {
-      const stored = localStorage.getItem("token");
-      setToken(stored);
-      await loadCartData(stored);
+      if (localStorage.getItem("token")) {
+        const stored = localStorage.getItem("token");
+        setToken(stored);
+        await loadCartData(stored);
+      }
     }
-  }
 
-  localData();
-}, [i18n.language]);     // <-- FIX: neu laden bei Sprachenwechsel
-
+    localData();
+  }, [i18n.language]); // <-- FIX: neu laden bei Sprachenwechsel
 
   return (
     <StoreContext.Provider value={contextValue}>
