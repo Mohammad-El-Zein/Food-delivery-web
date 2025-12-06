@@ -1,13 +1,13 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import React from "react";
-import { fetchFoodList } from "../service/foodService";
+import { fetchFoodList } from "../Service/foodService";
 import {
   addToCart,
   deleteItemFromCart,
   getCartData,
   removeQtyFromCart,
-} from "../service/cartService";
+} from "../Service/cartService";
 import { useTranslation } from "react-i18next";
 
 export const StoreContext = createContext(null);
