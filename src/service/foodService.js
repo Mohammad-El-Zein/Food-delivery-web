@@ -1,7 +1,7 @@
 import axios from "axios";
 import i18n from "../i18n"; // <-- wichtig
 
-const API_URL = "http://localhost:8080/api/foods";
+const API_URL = "https://flavorhaus-mo.up.railway.app/api/foods";
 
 export const fetchFoodList = async () => {
   try {

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const analyzeNutrition = async (foodName, portion) => {
-  const response = await axios.post("http://localhost:8080/api/nutrition/analyze", {
+  const response = await axios.post("https://flavorhaus-mo.up.railway.app/api/nutrition/analyze", {
     foodName,
     portion
   });

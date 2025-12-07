@@ -3,7 +3,7 @@ import React from 'react';
 import { data } from "react-router-dom";
 import { toast } from 'react-toastify';
 
-const API_URL = "http://localhost:8080/api"
+const API_URL = "https://flavorhaus-mo.up.railway.app/api"
 
 export const registerUser= async (data) => {
      try {
