@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../Service/authService";
+import { login } from "../../service/authService";
 import { StoreContext } from "../../context/StoreContext";
 import { toast } from "react-toastify";
 import ScrollReveal from "scrollreveal";
@@ -60,13 +60,11 @@ const Login = () => {
         <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
           <div className="card border-0 shadow rounded-3 my-5">
             <div className="card-body p-4 p-sm-5">
-
               <h5 className="card-title text-center mb-5 fw-light fs-5">
                 {t("loginNew.titleNew")}
               </h5>
 
               <form onSubmit={onSubmitHandler}>
-
                 <div className="form-floating mb-3">
                   <input
                     type="email"
@@ -119,9 +117,7 @@ const Login = () => {
                   {t("loginNew.noAccountNew")}{" "}
                   <Link to="/register">{t("loginNew.registerNew")}</Link>
                 </div>
-
               </form>
-
             </div>
           </div>
         </div>
