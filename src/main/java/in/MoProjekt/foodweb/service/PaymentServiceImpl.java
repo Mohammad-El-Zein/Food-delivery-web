@@ -28,45 +28,46 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired
     private UserService userService;
 
-        @Value("${stripePublishableKey}")
-        private String stripePublishableKey;
-        @Value("${stripeSecretKey}")
-        private String stripeSecretKey;
+    @Value("${stripePublishableKey}")
+    private String stripePublishableKey;
+    @Value("${stripeSecretKey}")
+    private String stripeSecretKey;
 
-        @Override
-        public PaymentResponse createPaymentLink(OrderEntity orderEntity) throws StripeException {
-            //create Stripe payment order
+    @Override
+    public PaymentResponse createPaymentLink(OrderEntity orderEntity) throws StripeException {
+        // create Stripe payment order
 
-            com.stripe.Stripe.apiKey = stripeSecretKey;
+        com.stripe.Stripe.apiKey = stripeSecretKey;
 
         SessionCreateParams params = SessionCreateParams.builder().addPaymentMethodType(
-            SessionCreateParams.PaymentMethodType.CARD)
-            .setMode(SessionCreateParams.Mode.PAYMENT)
-            .setSuccessUrl("http://localhost:5173/payment/success/"+ orderEntity.getId())
-            .setCancelUrl("http://localhost:5173/payment/fail/"+ orderEntity.getId())
-            .addLineItem(
-                SessionCreateParams.LineItem.builder()
-                    .setQuantity(1L)
-                    .setPriceData(
-                        SessionCreateParams.LineItem.PriceData.builder()
-                            .setCurrency("eur")
-                            .setUnitAmount((long) orderEntity.getAmount()*100)
-                            .setProductData(
-                                SessionCreateParams.LineItem.PriceData.ProductData.builder()
-                                    .setName("Order #" + orderEntity.getId())
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .build()
-            )
-            .build();
+                SessionCreateParams.PaymentMethodType.CARD)
+                .setMode(SessionCreateParams.Mode.PAYMENT)
+                .setSuccessUrl("https://mohammadzein-flavorhaus.netlify.app/payment/success/"
+                        + orderEntity.getId())
+                .setCancelUrl("https://mohammadzein-flavorhaus.netlify.app/payment/fail/"
+                        + orderEntity.getId())
+                .addLineItem(
+                        SessionCreateParams.LineItem.builder()
+                                .setQuantity(1L)
+                                .setPriceData(
+                                        SessionCreateParams.LineItem.PriceData.builder()
+                                                .setCurrency("eur")
+                                                .setUnitAmount((long) orderEntity.getAmount() * 100)
+                                                .setProductData(
+                                                        SessionCreateParams.LineItem.PriceData.ProductData
+                                                                .builder()
+                                                                .setName("Order #"
+                                                                        + orderEntity.getId())
+                                                                .build())
+                                                .build())
+                                .build())
+                .build();
 
-            
-            Session session = Session.create(params);
-            PaymentResponse res = new PaymentResponse();
-            res.setPaymentUrl(session.getUrl());
-            res.setOrderId(orderEntity.getId());
-            return res;
-        }
+
+        Session session = Session.create(params);
+        PaymentResponse res = new PaymentResponse();
+        res.setPaymentUrl(session.getUrl());
+        res.setOrderId(orderEntity.getId());
+        return res;
+    }
 }
