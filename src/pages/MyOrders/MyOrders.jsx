@@ -10,9 +10,12 @@ const MyOrders = () => {
   const { t } = useTranslation();
 
   const fetchOrders = async () => {
-    const response = await axios.get("http://localhost:8080/api/orders", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.get(
+      "https://flavorhaus-mo.up.railway.app/api/orders",
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     setData(response.data);
   };
 
@@ -59,7 +62,10 @@ const MyOrders = () => {
                   <td>{formatDate(order.createdAt)}</td>
 
                   <td>
-                    <button className="btn btn-sm btn-warning" onClick={fetchOrders}>
+                    <button
+                      className="btn btn-sm btn-warning"
+                      onClick={fetchOrders}
+                    >
                       <i className="bi bi-arrow-clockwise"></i>
                     </button>
                   </td>
