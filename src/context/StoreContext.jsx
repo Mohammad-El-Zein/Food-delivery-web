@@ -62,7 +62,7 @@ export const StoreContextProvider = (props) => {
 
   useEffect(() => {
     async function localData() {
-      const data = await fetchFoodList(); 
+      const data = await fetchFoodList();
       setFoodList(data);
 
       if (localStorage.getItem("token")) {
@@ -73,7 +73,7 @@ export const StoreContextProvider = (props) => {
     }
 
     localData();
-  }, [i18n.language]); 
+  }, [i18n.language]);
 
   return (
     <StoreContext.Provider value={contextValue}>
