@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { fetchFoodDetails } from "../../Service/foodService";
-import { analyzeNutrition } from "../../service/NutritionService";
+import { analyzeNutrition } from "../../Service/NutritionService";
 import { toast } from "react-toastify";
 import { StoreContext } from "../../context/StoreContext";
 import ScrollReveal from "scrollreveal";

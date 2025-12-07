@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
 import { toast } from "react-toastify";
 import ScrollReveal from "scrollreveal";
-import { analyzeNutrition } from "../../service/NutritionService";
+import { analyzeNutrition } from "../../Service/NutritionService";
 import "./FoodItem.css";
 import { useTranslation } from "react-i18next";
 
