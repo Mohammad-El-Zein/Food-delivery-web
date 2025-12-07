@@ -11,9 +11,8 @@ const PlaceOrder = () => {
   const { t } = useTranslation();
 
   const translateCategory = (cat) => {
-  return t(`categoryMap.${cat}`, cat);
-};
-
+    return t(`categoryMap.${cat}`, cat);
+  };
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -53,7 +52,7 @@ const PlaceOrder = () => {
         foodId: item.id,
         quantity: quantities[item.id],
         price: item.price,
-        name: safeText(item.name),            // FIXED
+        name: safeText(item.name), // FIXED
         description: safeText(item.description), // FIXED
         imageUrl: item.imageUrl,
         category: item.category,
@@ -69,7 +68,7 @@ const PlaceOrder = () => {
       };
 
       const response = await axios.post(
-        "http://localhost:8080/api/orders/create",
+        "https://flavorhaus-mo.up.railway.app/api/orders/create",
         orderRequest,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -98,10 +97,11 @@ const PlaceOrder = () => {
             <h4 className="mb-4 fw-semibold">{t("placeOrder.detailsTitle")}</h4>
 
             <form onSubmit={handleSubmit} className="row g-3">
-
               {/* FIRST NAME */}
               <div className="col-md-6">
-                <label className="form-label">{t("placeOrder.firstName")}</label>
+                <label className="form-label">
+                  {t("placeOrder.firstName")}
+                </label>
                 <input
                   type="text"
                   className="form-control custom-input"
@@ -188,7 +188,9 @@ const PlaceOrder = () => {
                   required
                 >
                   <option value="">{t("placeOrder.statePlaceholder")}</option>
-                  <option value="Nordrhein-Westfalen">{t("placeOrder.b")}</option>
+                  <option value="Nordrhein-Westfalen">
+                    {t("placeOrder.b")}
+                  </option>
                 </select>
               </div>
 
@@ -249,7 +251,9 @@ const PlaceOrder = () => {
 
               <li className="list-group-item d-flex justify-content-between border-0">
                 <span>{t("cart.shipping")}</span>
-                <span>{subtotal === 0 ? "0.00€" : shipping.toFixed(2) + "€"}</span>
+                <span>
+                  {subtotal === 0 ? "0.00€" : shipping.toFixed(2) + "€"}
+                </span>
               </li>
 
               <li className="list-group-item d-flex justify-content-between border-0 mt-2 pt-2 border-top">
