@@ -116,7 +116,7 @@ Food-delivery-web/
 | Service | Link |
 |---------|------|
 | 🌐 **Frontend** | [mohammadzein-flavorhaus.netlify.app](https://mohammadzein-flavorhaus.netlify.app/) |
-| 🔌 **Backend API** | [foodrestapi-production-471c.up.railway.app/api/foods](https://flavorhaus-mo.up.railway.app) |
+| 🔌 **Backend API** | [flavorhaus-mo.up.railway.app](https://flavorhaus-mo.up.railway.app) |
 
 ---
 
