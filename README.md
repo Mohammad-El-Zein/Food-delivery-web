@@ -14,8 +14,7 @@
 <p align="center">
   <a href="https://mohammadzein-flavorhaus.netlify.app/">🌐 Live Demo</a> •
   <a href="#features">✨ Features</a> •
-  <a href="#tech-stack">🛠️ Tech Stack</a> •
-  <a href="#installation">📦 Installation</a>
+
 </p>
 
 ---
