@@ -121,52 +121,6 @@ Food-delivery-web/
 
 ---
 
-## 📦 Installation
-
-### Voraussetzungen
-- Node.js 18+
-- Java 17+
-- Maven
-- MongoDB Atlas Account
-- Stripe Account
-
-### Frontend starten
-```bash
-cd Frontend
-npm install
-npm run dev
-```
-
-### Backend starten
-```bash
-cd Backend
-mvn spring-boot:run
-```
-
-### Admin Panel starten
-```bash
-cd admin
-npm install
-npm run dev
-```
-
-### Umgebungsvariablen
-
-**Backend (.env oder application.properties):**
-```properties
-MONGODB_URI=mongodb+srv://...
-STRIPE_SECRET_KEY=sk_test_...
-JWT_SECRET=your-secret-key
-```
-
-**Frontend (.env):**
-```env
-VITE_API_URL=http://localhost:8080/api
-VITE_STRIPE_PUBLIC_KEY=pk_test_...
-```
-
----
-
 ## 💳 Zahlungen mit Stripe
 
 Die App nutzt **Stripe Checkout** für sichere Zahlungen:
@@ -178,18 +132,7 @@ Die App nutzt **Stripe Checkout** für sichere Zahlungen:
    - ✅ Erfolg → `/payment/success/:orderId`
    - ❌ Fehler → `/payment/fail/:orderId`
 
-**Testkarte:** `4242 4242 4242 4242`
-
----
-
-## 🔒 Sicherheit
-
-| Maßnahme | Implementierung |
-|----------|-----------------|
-| Passwörter | BCrypt Hashing |
-| Auth | JWT Token-basiert |
-| API Keys | Environment Variables |
-| CORS | Whitelist für Netlify & localhost |
+**Testkarte:** `4111 1111 1111 111`
 
 ---
 
@@ -221,9 +164,9 @@ Die App nutzt **Stripe Checkout** für sichere Zahlungen:
 
 ### Über mich
 
-Ich bin 22 Jahre alt und komme aus dem Libanon. Im Oktober 2022 bin ich nach Deutschland gekommen, um mein Informatikstudium an der TU Dortmund aufzunehmen. Nach einem intensiven Jahr Deutschlernen (telc C1) befinde ich mich nun im fünften Semester.
+Mohammad El Zein , Informatik Student 
 
-**Skills:** `C` `C++` `Python` `Java` `SQL` `HTML` `CSS` `JavaScript` `React` `Spring Boot` `MongoDB`
+**Skills:** `C` `C++` `Python` `Kotlin` `Java` `SQL` `HTML` `CSS` `JavaScript` `React` `Spring Boot` `MongoDB`
 
 Derzeit bereite ich mich auf die **Microsoft Azure Fundamentals-Zertifizierung** vor und spezialisiere mich auf Cloud- und DevOps-Engineering.
 
@@ -233,8 +176,4 @@ Derzeit bereite ich mich auf die **Microsoft Azure Fundamentals-Zertifizierung**
 
 Dieses Projekt ist für Bildungszwecke und als Portfolio-Projekt erstellt.
 
----
 
-<p align="center">
-  <strong>⭐ Wenn dir das Projekt gefällt, gib ihm einen Stern! ⭐</strong>
-</p>
