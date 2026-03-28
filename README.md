@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://mohammadzein-flavorhaus.netlify.app/">🌐 Live Demo</a> •
+  <a href="https://mohammadzein-flavorhaus.netlify.app/"> • 🌐 Live Demo</a> •
 
 </p>
 
