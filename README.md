@@ -167,8 +167,6 @@ Mohammad El Zein , Informatik Student
 
 **Skills:** `C` `C++` `Python` `Kotlin` `Java` `SQL` `HTML` `CSS` `JavaScript` `React` `Spring Boot` `MongoDB`
 
-Derzeit bereite ich mich auf die **Microsoft Azure Fundamentals-Zertifizierung** vor und spezialisiere mich auf Cloud- und DevOps-Engineering.
-
 ---
 
 ## 📄 Lizenz
