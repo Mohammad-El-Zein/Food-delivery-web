@@ -1,8 +1,12 @@
 package in.MoProjekt.foodweb.controller;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import in.MoProjekt.foodweb.entity.FoodImageEntity;
 import in.MoProjekt.foodweb.io.FoodRequest;
 import in.MoProjekt.foodweb.io.FoodResponse;
 import in.MoProjekt.foodweb.service.FoodService;
@@ -51,6 +56,16 @@ public List<FoodResponse> readFoods(
     return foodService.readFoods(lang);
 }
 
+
+    // Bilder, die in MongoDB gespeichert sind (öffentlich lesbar)
+    @GetMapping("/images/{id}")
+    public ResponseEntity<byte[]> readImage(@PathVariable String id) {
+        FoodImageEntity image = foodService.readImage(id);
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(image.getContentType()))
+                .cacheControl(CacheControl.maxAge(30, TimeUnit.DAYS).cachePublic())
+                .body(image.getData());
+    }
 
    @GetMapping("/{id}")
 public FoodResponse readFood(

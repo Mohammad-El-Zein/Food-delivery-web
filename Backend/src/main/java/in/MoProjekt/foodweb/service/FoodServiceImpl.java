@@ -14,8 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import in.MoProjekt.foodweb.entity.FoodEntity;
+import in.MoProjekt.foodweb.entity.FoodImageEntity;
 import in.MoProjekt.foodweb.io.FoodRequest;
 import in.MoProjekt.foodweb.io.FoodResponse;
+import in.MoProjekt.foodweb.repository.FoodImageRepository;
 import in.MoProjekt.foodweb.repository.FoodRepository;
 import software.amazon.awssdk.core.sync.RequestBody;
 
@@ -36,6 +38,15 @@ public class FoodServiceImpl implements FoodService {
 
     @Autowired
     private OpenAITranslationService translator;
+
+    @Autowired
+    private FoodImageRepository foodImageRepository;
+
+    @Value("${backend.url}")
+    private String backendUrl;
+
+    private static final String DB_IMAGE_PATH = "/api/foods/images/";
+    private static final long MAX_DB_IMAGE_SIZE = 5 * 1024 * 1024;
 
     @Value("${aws.s3.bucketName}")
     private String bucketName;
@@ -124,7 +135,11 @@ public void deleteFood(String id) {
     if (imageUrl != null && !imageUrl.isBlank()) {
         String filename = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
         try {
-            deleteFile(filename);
+            if (imageUrl.contains(DB_IMAGE_PATH)) {
+                foodImageRepository.deleteById(filename);
+            } else {
+                deleteFile(filename);
+            }
         } catch (Exception ex) {
             // Bild konnte nicht gelöscht werden (z. B. S3 nicht erreichbar) -> Gericht trotzdem löschen
             System.out.println("Could not delete image " + filename + ": " + ex.getMessage());
@@ -166,7 +181,10 @@ private FoodResponse convertToResponse(FoodEntity entity, String lang) {
 
     @Override
 public FoodResponse addFood(FoodRequest request, MultipartFile file) {
-    String imageUrl = uploadFile(file);
+    if (file == null || file.isEmpty() || file.getContentType() == null || !file.getContentType().startsWith("image/")) {
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Please upload an image");
+    }
+    String imageUrl = storeImage(file);
 
     FoodEntity entity = new FoodEntity();
     entity.setName(withEnglish(request.getName()));
@@ -179,6 +197,33 @@ public FoodResponse addFood(FoodRequest request, MultipartFile file) {
 
     return convertToResponse(saved, "de");
 }
+
+    // Erst S3 versuchen; klappt das nicht (z. B. AWS-Zugang abgelaufen), Bild in MongoDB speichern
+    private String storeImage(MultipartFile file) {
+        try {
+            return uploadFile(file);
+        } catch (Exception ex) {
+            System.out.println("S3 upload failed, storing image in MongoDB instead: " + ex.getMessage());
+        }
+        if (file.getSize() > MAX_DB_IMAGE_SIZE) {
+            throw new ResponseStatusException(HttpStatus.PAYLOAD_TOO_LARGE, "Image must be smaller than 5 MB");
+        }
+        try {
+            FoodImageEntity image = foodImageRepository.save(FoodImageEntity.builder()
+                    .contentType(file.getContentType())
+                    .data(file.getBytes())
+                    .build());
+            return backendUrl + DB_IMAGE_PATH + image.getId();
+        } catch (IOException ex) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not read the image");
+        }
+    }
+
+    @Override
+    public FoodImageEntity readImage(String id) {
+        return foodImageRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found"));
+    }
 
     // Deutscher Text + KI-Übersetzung ins Englische (falls OpenAI nicht erreichbar: nur Deutsch)
     private Map<String, String> withEnglish(String germanText) {

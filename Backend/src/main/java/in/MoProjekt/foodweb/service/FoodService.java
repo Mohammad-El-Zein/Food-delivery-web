@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import in.MoProjekt.foodweb.entity.FoodImageEntity;
 import in.MoProjekt.foodweb.io.FoodRequest;
 import in.MoProjekt.foodweb.io.FoodResponse;
 
@@ -20,4 +21,6 @@ public interface FoodService {
     boolean deleteFile(String filename);
 
     String uploadFile(MultipartFile file);
+
+    FoodImageEntity readImage(String id);
 }

@@ -26,6 +26,10 @@ const AddFood = () => {
       toast.error('Bitte ein Bild hochladen.');
       return;
     }
+    if(image.size > 5 * 1024 * 1024) {
+      toast.error('Das Bild darf maximal 5 MB groß sein.');
+      return;
+    }
     try {
       await addFood({ ...data, price: Number(data.price) }, image);
       toast.success('Gericht erfolgreich hinzugefügt.');
@@ -36,8 +40,15 @@ const AddFood = () => {
         price: ''
       });
       setImage(null);
-    } catch {
-      toast.error('Fehler beim Hinzufügen des Gerichts.');
+    } catch (error) {
+      const status = error.response?.status;
+      if (status === 413) {
+        toast.error('Das Bild ist zu groß (maximal 5 MB).');
+      } else if (status === 400) {
+        toast.error('Bitte ein gültiges Bild (JPG, PNG, WebP) hochladen.');
+      } else {
+        toast.error(`Fehler beim Hinzufügen des Gerichts${status ? ` (Code ${status})` : ''}.`);
+      }
       
     }
   }

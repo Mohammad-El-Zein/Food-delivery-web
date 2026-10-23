@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import in.MoProjekt.foodweb.controller.AdminOrderController;
 import in.MoProjekt.foodweb.controller.AiController;
 import in.MoProjekt.foodweb.controller.FoodController;
+import in.MoProjekt.foodweb.entity.FoodImageEntity;
 import in.MoProjekt.foodweb.entity.UserEntity;
 import in.MoProjekt.foodweb.filters.JwtAuthenticationFilter;
 import in.MoProjekt.foodweb.io.NutritionResponse;
@@ -73,6 +74,8 @@ class SecurityConfigTest {
     void foodsAreReadableByEveryone() throws Exception {
         mvc.perform(get("/api/foods")).andExpect(status().isOk());
         mvc.perform(get("/api/foods").header("Authorization", "Bearer kaputt")).andExpect(status().isOk());
+        when(foodService.readImage("img1")).thenReturn(FoodImageEntity.builder().contentType("image/jpeg").data(new byte[] { 1 }).build());
+        mvc.perform(get("/api/foods/images/img1")).andExpect(status().isOk()).andExpect(content().contentType("image/jpeg"));
     }
 
     @Test
