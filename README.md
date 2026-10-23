@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  • <a href="https://mohammadzein-flavorhaus.netlify.app/">🌐 Live Demo</a> •
+  • <a href="https://flavorhaus.elzein.dev/">🌐 Live Demo</a> •
 
 </p>
 
@@ -115,7 +115,8 @@ Food-delivery-web/
 
 | Service | Link |
 |---------|------|
-| 🌐 **Frontend** | [mohammadzein-flavorhaus.netlify.app](https://mohammadzein-flavorhaus.netlify.app/) |
+| 🌐 **Frontend** | [flavorhaus.elzein.dev](https://flavorhaus.elzein.dev/) |
+| 👨‍💼 **Admin Panel** | [flavorhaus-admin.elzein.dev](https://flavorhaus-admin.elzein.dev/) (nur mit Admin-Login) |
 | 🔌 **Backend API** | [flavorhaus-mo.up.railway.app](https://flavorhaus-mo.up.railway.app) |
 
 ---
@@ -131,7 +132,7 @@ Die App nutzt **Stripe Checkout** für sichere Zahlungen:
    - ✅ Erfolg → `/payment/success/:orderId`
    - ❌ Fehler → `/payment/fail/:orderId`
 
-**Testkarte:** `4111 1111 1111 111`
+**Testkarte:** `4242 4242 4242 4242` (beliebiges Datum in der Zukunft, beliebige CVC)
 
 ---
 
