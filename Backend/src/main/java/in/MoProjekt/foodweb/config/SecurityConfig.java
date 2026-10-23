@@ -1,5 +1,6 @@
 package in.MoProjekt.foodweb.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,15 +25,19 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 
 import in.MoProjekt.foodweb.filters.JwtAuthenticationFilter;
 import in.MoProjekt.foodweb.service.AppUserDetailsService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final AppUserDetailsService userDetailService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    // Kommagetrennte Liste, z. B. "https://meine-seite.de,https://admin.meine-seite.de"
+    @Value("${cors.allowed-origins}")
+    private List<String> allowedOrigins;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -67,7 +72,7 @@ public class SecurityConfig {
 
     private UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("https://mohammadzein-flavorhaus.netlify.app"));
+        config.setAllowedOriginPatterns(allowedOrigins);
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);

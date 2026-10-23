@@ -76,7 +76,7 @@ Java 17  •  Spring Boot  •  Spring Security + JWT  •  MongoDB Atlas  •  
 
 ### Deployment
 ```
-Frontend: Netlify  •  Backend: Railway  •  Database: MongoDB Atlas
+Frontend + Admin: Netlify  •  Backend: Railway  •  Database: MongoDB Atlas
 ```
 
 ---
@@ -100,7 +100,7 @@ Food-delivery-web/
 │   │       └── resources/
 │   └── pom.xml
 │
-├── admin/             # Admin Dashboard
+├── Admin/             # Admin Dashboard
 │   ├── src/
 │   │   ├── components/
 │   │   └── pages/

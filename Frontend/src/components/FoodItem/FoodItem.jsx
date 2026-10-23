@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
@@ -6,8 +7,9 @@ import ScrollReveal from "scrollreveal";
 import { analyzeNutrition } from "../../service/NutritionService";
 import "./FoodItem.css";
 import { useTranslation } from "react-i18next";
+import { getFoodImageById } from "../../assets/assets";
 
-const FoodItem = ({ name, description, id, imageUrl, price }) => {
+const FoodItem = ({ name, description, id, imageUrl, price, category }) => {
   const { increaseQty, decreaseQty, quantities } = useContext(StoreContext);
   const { t } = useTranslation();
 
@@ -100,12 +102,11 @@ const FoodItem = ({ name, description, id, imageUrl, price }) => {
         </div>
       )}
 
-      {/* ---------- CARD ---------- */}
       <div className={`food-card ${animateResult ? "highlight-card" : ""}`}>
         <Link to={`/food/${id}`}>
           <img
-            src={imageUrl}
-            alt={displayName}   // FIXED
+            src={getFoodImageById(id, category)}
+            alt={displayName}   
             className="food-image"
           />
         </Link>

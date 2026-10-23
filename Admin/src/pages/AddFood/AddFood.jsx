@@ -1,14 +1,12 @@
 import React from 'react'
 import { assets } from '../../assets/assets';
 import { useState } from 'react';
-import axios from 'axios';
-import { Toast } from 'bootstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addFood } from '../../services/foodService';
 
 const AddFood = () => {
-  const [image, setImage]=useState(false);
+  const [image, setImage]=useState(null);
   const [data, setData]=useState({
     name: '',
     description: '',
@@ -29,7 +27,7 @@ const AddFood = () => {
       return;
     }
     try {
-      await addFood(data, image);
+      await addFood({ ...data, price: Number(data.price) }, image);
       toast.success('Gericht erfolgreich hinzugefügt.');
       setData({
         name: '',
@@ -37,8 +35,8 @@ const AddFood = () => {
         category: 'Pasta',
         price: ''
       });
-        setImage(null); 
-    } catch (error) {
+      setImage(null);
+    } catch {
       toast.error('Fehler beim Hinzufügen des Gerichts.');
       
     }
@@ -56,7 +54,7 @@ const AddFood = () => {
             <label htmlFor="image" className="form-label"> 
              <img src={image ? URL.createObjectURL(image): assets.upload} alt="" width={98} />
             </label>
-            <input type="file" className="form-control" id="image"  hidden onChange={(e) => setImage(e.target.files[0])} />
+            <input type="file" accept="image/*" className="form-control" id="image"  hidden onChange={(e) => setImage(e.target.files[0])} />
           </div>
 
           <div className="mb-3">
@@ -69,21 +67,20 @@ const AddFood = () => {
           </div>
           <div className="mb-3">
             <label htmlFor="category" className="form-label">Kategorie</label>
-           <select name="category" placeholder='Kategorie auswählen oder eingeben' id="category" className='form-control' onChange={onChangeHandler} value={data.category}>
-              <option value="pizza">Pizza</option>
-              <option value="pasta">Pasta</option>
-              <option value="burger">Burger</option>
-              <option value="arabisches">Arabisches</option>
-              
-              <option value="salat">Salat</option>
-              <option value="dessert">Dessert</option>
-              <option value="getraenk">Getränk</option>
+           <select name="category" id="category" className='form-control' onChange={onChangeHandler} value={data.category}>
+              <option value="Pizza">Pizza</option>
+              <option value="Pasta">Pasta</option>
+              <option value="Burger">Burger</option>
+              <option value="Arabisches">Arabisches</option>
+              <option value="Salat">Salat</option>
+              <option value="Dessert">Dessert</option>
+              <option value="Getränke">Getränke</option>
             </select>
           </div>
 
           <div className="mb-3">
             <label htmlFor="price" className="form-label">Preis</label>
-            <input type="number" placeholder='Betrag in Euro eingeben' name="price" id="price" className='form-control' onChange={onChangeHandler} value={data.price} />
+            <input type="number" min="0" step="0.01" required placeholder='Betrag in Euro eingeben' name="price" id="price" className='form-control' onChange={onChangeHandler} value={data.price} />
            
              </div>
           <button type="submit" className="btn btn-primary">Speichern</button>
