@@ -5,6 +5,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -229,7 +231,9 @@ public FoodResponse addFood(FoodRequest request, MultipartFile file) {
     private Map<String, String> withEnglish(String germanText) {
         String de = germanText != null ? germanText.trim() : "";
         try {
-            String en = translator.translate(de, "English");
+            // höchstens 20 Sekunden auf OpenAI warten, sonst ohne Übersetzung speichern
+            String en = CompletableFuture.supplyAsync(() -> translator.translate(de, "English"))
+                    .get(20, TimeUnit.SECONDS);
             if (en != null && !en.isBlank()) {
                 return Map.of("de", de, "en", en.trim());
             }

@@ -7,7 +7,8 @@ export const getToken = () => localStorage.getItem(TOKEN_KEY);
 export const setToken = (token) => localStorage.setItem(TOKEN_KEY, token);
 export const clearToken = () => localStorage.removeItem(TOKEN_KEY);
 
-const api = axios.create({ baseURL: `${BASE_URL}/api` });
+// Nach 60 Sekunden ohne Antwort abbrechen, statt endlos zu warten
+const api = axios.create({ baseURL: `${BASE_URL}/api`, timeout: 60000 });
 
 // Token bei jeder Anfrage mitschicken
 api.interceptors.request.use((config) => {

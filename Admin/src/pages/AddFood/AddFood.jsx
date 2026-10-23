@@ -7,6 +7,7 @@ import { addFood } from '../../services/foodService';
 
 const AddFood = () => {
   const [image, setImage]=useState(null);
+  const [saving, setSaving]=useState(false);
   const [data, setData]=useState({
     name: '',
     description: '',
@@ -30,6 +31,7 @@ const AddFood = () => {
       toast.error('Das Bild darf maximal 5 MB groß sein.');
       return;
     }
+    setSaving(true);
     try {
       await addFood({ ...data, price: Number(data.price) }, image);
       toast.success('Gericht erfolgreich hinzugefügt.');
@@ -47,9 +49,12 @@ const AddFood = () => {
       } else if (status === 400) {
         toast.error('Bitte ein gültiges Bild (JPG, PNG, WebP) hochladen.');
       } else {
-        toast.error(`Fehler beim Hinzufügen des Gerichts${status ? ` (Code ${status})` : ''}.`);
+        toast.error(status
+          ? `Fehler beim Hinzufügen des Gerichts (Code ${status}).`
+          : 'Keine Antwort vom Server. Bitte später erneut versuchen.');
       }
-      
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -94,7 +99,10 @@ const AddFood = () => {
             <input type="number" min="0" step="0.01" required placeholder='Betrag in Euro eingeben' name="price" id="price" className='form-control' onChange={onChangeHandler} value={data.price} />
            
              </div>
-          <button type="submit" className="btn btn-primary">Speichern</button>
+          <button type="submit" className="btn btn-primary" disabled={saving}>
+            {saving && <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>}
+            {saving ? 'Wird gespeichert...' : 'Speichern'}
+          </button>
         </form>
       </div>
     </div>

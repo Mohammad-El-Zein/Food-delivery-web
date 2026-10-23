@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.Duration;
+
+import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -22,6 +25,10 @@ public class AWSConfig {
      return S3Client.builder()
         .region(Region.of(region))
         .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(accessKey, secretKey)))
+        // nicht ewig warten, falls S3 nicht erreichbar ist
+        .overrideConfiguration(ClientOverrideConfiguration.builder()
+            .apiCallTimeout(Duration.ofSeconds(15))
+            .build())
         .build();
     }
 
