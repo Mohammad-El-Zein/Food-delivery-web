@@ -23,6 +23,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 
 @Service
 public class FoodServiceImpl implements FoodService {
@@ -32,6 +33,9 @@ public class FoodServiceImpl implements FoodService {
 
     @Autowired
     private FoodRepository foodRepository;
+
+    @Autowired
+    private OpenAITranslationService translator;
 
     @Value("${aws.s3.bucketName}")
     private String bucketName;
@@ -48,8 +52,17 @@ public class FoodServiceImpl implements FoodService {
             .acl("public-read")
             .contentType(file.getContentType())
             .build();
-            PutObjectResponse response = s3Client.putObject(putObjectRequest,
-            RequestBody.fromBytes(file.getBytes()));
+            PutObjectResponse response;
+            try {
+                response = s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
+            } catch (S3Exception ex) {
+                // Neuere Buckets erlauben keine ACLs mehr -> ohne ACL erneut versuchen
+                if (!"AccessControlListNotSupported".equals(ex.awsErrorDetails().errorCode())) {
+                    throw ex;
+                }
+                response = s3Client.putObject(putObjectRequest.toBuilder().acl((String) null).build(),
+                        RequestBody.fromBytes(file.getBytes()));
+            }
 
             if(response.sdkHttpResponse().isSuccessful()){
                 return "https://" + bucketName + ".s3.amazonaws.com/" + key;
@@ -86,7 +99,7 @@ public List<FoodResponse> readFoods(String lang) {
    @Override
 public FoodResponse readFood(String id, String lang) {
     FoodEntity entity = foodRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Food not found"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Food not found"));
     return convertToResponse(entity, lang);
 }
 
@@ -108,13 +121,17 @@ public void deleteFood(String id) {
     FoodResponse response = readFood(id, "de");
 
     String imageUrl = response.getImageUrl();
-    String filename = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
-
-    boolean fileDeleted = deleteFile(filename);
-
-    if (fileDeleted) {
-        foodRepository.deleteById(id);
+    if (imageUrl != null && !imageUrl.isBlank()) {
+        String filename = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
+        try {
+            deleteFile(filename);
+        } catch (Exception ex) {
+            // Bild konnte nicht gelöscht werden (z. B. S3 nicht erreichbar) -> Gericht trotzdem löschen
+            System.out.println("Could not delete image " + filename + ": " + ex.getMessage());
+        }
     }
+
+    foodRepository.deleteById(id);
 }
 
 
@@ -152,8 +169,8 @@ public FoodResponse addFood(FoodRequest request, MultipartFile file) {
     String imageUrl = uploadFile(file);
 
     FoodEntity entity = new FoodEntity();
-    entity.setName(request.getNameMap());
-    entity.setDescription(request.getDescriptionMap());
+    entity.setName(withEnglish(request.getName()));
+    entity.setDescription(withEnglish(request.getDescription()));
     entity.setCategory(request.getCategory());
     entity.setPrice(request.getPrice());
     entity.setImageUrl(imageUrl);
@@ -162,6 +179,20 @@ public FoodResponse addFood(FoodRequest request, MultipartFile file) {
 
     return convertToResponse(saved, "de");
 }
+
+    // Deutscher Text + KI-Übersetzung ins Englische (falls OpenAI nicht erreichbar: nur Deutsch)
+    private Map<String, String> withEnglish(String germanText) {
+        String de = germanText != null ? germanText.trim() : "";
+        try {
+            String en = translator.translate(de, "English");
+            if (en != null && !en.isBlank()) {
+                return Map.of("de", de, "en", en.trim());
+            }
+        } catch (Exception ex) {
+            System.out.println("Translation failed: " + ex.getMessage());
+        }
+        return Map.of("de", de);
+    }
 
 
 }

@@ -12,4 +12,5 @@ import in.MoProjekt.foodweb.entity.OrderEntity;
 public interface OrderRepository extends MongoRepository<OrderEntity, String>{
     List<OrderEntity> findByUserId(String userId);
     Optional<OrderEntity> findByStripeOrderId(String stripeOrderId);
+    Optional<OrderEntity> findByStripeSessionId(String stripeSessionId);
 }

@@ -7,7 +7,7 @@ import ScrollReveal from "scrollreveal";
 import { analyzeNutrition } from "../../service/NutritionService";
 import "./FoodItem.css";
 import { useTranslation } from "react-i18next";
-import { getFoodImageById } from "../../assets/assets";
+import { getFoodImageById, handleFoodImageError } from "../../assets/assets";
 
 const FoodItem = ({ name, description, id, imageUrl, price, category }) => {
   const { increaseQty, decreaseQty, quantities } = useContext(StoreContext);
@@ -36,7 +36,9 @@ const FoodItem = ({ name, description, id, imageUrl, price, category }) => {
       setNutrition(data);
       setTimeout(() => setAnimateResult(true), 70);
     } catch (e) {
-      toast.error(t("messages.aiEstimateFailed"));
+      toast.error(
+        t(e.response?.status === 429 ? "messages.aiLimitReached" : "messages.aiEstimateFailed")
+      );
     }
 
     setLoadingPopup(false);
@@ -105,7 +107,8 @@ const FoodItem = ({ name, description, id, imageUrl, price, category }) => {
       <div className={`food-card ${animateResult ? "highlight-card" : ""}`}>
         <Link to={`/food/${id}`}>
           <img
-            src={getFoodImageById(id, category)}
+            src={getFoodImageById(id, category, imageUrl)}
+            onError={handleFoodImageError(category)}
             alt={displayName}   
             className="food-image"
           />

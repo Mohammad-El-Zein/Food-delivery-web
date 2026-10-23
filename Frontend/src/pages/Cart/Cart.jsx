@@ -4,7 +4,7 @@ import { StoreContext } from "../../context/StoreContext";
 import { Link, useNavigate } from "react-router-dom";
 import { calculateCartTotals } from "../../util/cartUtils";
 import { useTranslation } from "react-i18next";
-import { getFoodImageById } from "../../assets/assets";
+import { getFoodImageById, handleFoodImageError } from "../../assets/assets";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -58,7 +58,8 @@ const Cart = () => {
                 return (
                   <div key={food.id} className="row cart-item">
                     <div className="col-md-3 d-flex justify-content-center">
-                    <img src={getFoodImageById(food.id, food.category)} 
+                    <img src={getFoodImageById(food.id, food.category, food.imageUrl)}
+                    onError={handleFoodImageError(food.category)}
                     alt={name} className="cart-img" />                   
                      </div>
 

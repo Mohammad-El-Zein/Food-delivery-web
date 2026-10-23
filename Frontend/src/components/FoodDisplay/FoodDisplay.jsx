@@ -26,6 +26,7 @@ const FoodDisplay = ({ category, searchText }) => {
             key={food.id}
             id={food.id}
             imageUrl={food.imageUrl}
+            category={food.category}
             price={food.price}
             // WICHTIG: jetzt als STRING an FoodItem geben!
             name={food.name[lang]}

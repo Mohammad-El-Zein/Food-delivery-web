@@ -5,11 +5,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import in.MoProjekt.foodweb.util.JwtUtil;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.io.IOException;
 import static io.jsonwebtoken.lang.Strings.hasText;
 import jakarta.servlet.FilterChain;
@@ -34,8 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         return path.startsWith("/api/login")
                 || path.startsWith("/api/register")
-                || path.startsWith("/api/foods")
-                || path.startsWith("/api/nutrition");
+                || path.startsWith("/api/payments/webhook");
     }
 
 
@@ -53,10 +54,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String token = authHeader.substring(7);
-        String email = jwtUtil.extractUsername(token);
+        String email;
+        UserDetails userDetails;
+        try {
+            email = jwtUtil.extractUsername(token);
+            userDetails = email != null ? userDetailsService.loadUserByUsername(email) : null;
+        } catch (JwtException | IllegalArgumentException | UsernameNotFoundException ex) {
+            // Ungültiger/abgelaufener Token: Anfrage läuft als nicht eingeloggt weiter
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+        if (userDetails != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             if (jwtUtil.validateToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken authenticationToken =

@@ -1,7 +1,4 @@
-import axios from 'axios';
-
-const BASE_URL = import.meta.env.VITE_API_URL || 'https://flavorhaus-mo.up.railway.app';
-const API_URL = `${BASE_URL}/api/foods`;
+import api from './api';
 
 export const addFood = async (foodData, image) => {
     const formData = new FormData();
@@ -9,7 +6,7 @@ export const addFood = async (foodData, image) => {
     formData.append('file', image);
 
    try { 
-      await axios.post(API_URL, formData);
+      await api.post('/foods', formData);
     } catch (error) {
       console.log('Error', error);
       throw error;  
@@ -19,7 +16,7 @@ export const addFood = async (foodData, image) => {
 export const getFoodList = async () => { 
 
   try {
-    const response = await axios.get(API_URL);
+    const response = await api.get('/foods');
     return response.data;
 
   } catch (error) {
@@ -30,7 +27,7 @@ export const getFoodList = async () => {
 
 export const deleteFood = async (foodId) => {
   try {
-   const response = await axios.delete(API_URL+"/"+foodId);
+   const response = await api.delete('/foods/'+foodId);
     return response.status===204;
   } catch (error) {
     console.log('Fehler beim Löschen des Gerichts', error);

@@ -62,6 +62,12 @@ const MyOrders = () => {
                   <td>{formatDate(order.createdAt)}</td>
 
                   <td>
+                    <span className="badge bg-secondary">
+                      {t(`orderStatus.${order.orderStatus || "PENDING"}`)}
+                    </span>
+                  </td>
+
+                  <td>
                     <button
                       className="btn btn-sm btn-warning"
                       onClick={fetchOrders}

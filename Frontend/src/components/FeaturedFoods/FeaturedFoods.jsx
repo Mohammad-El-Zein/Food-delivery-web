@@ -23,7 +23,7 @@ import "swiper/css/navigation";
 import ScrollReveal from "scrollreveal";
 import "./FeaturedFoods.css";
 import { useTranslation } from "react-i18next";
-import { getFoodImageById } from "../../assets/assets";
+import { getFoodImageById, handleFoodImageError } from "../../assets/assets";
 
 const FeaturedFoods = () => {
   const { foodList, increaseQty, decreaseQty, quantities } =
@@ -139,7 +139,8 @@ const FeaturedFoods = () => {
             >
               <div className="featured-card p-4">
                 <img
-                  src={getFoodImageById(food.id, food.category)}                 
+                  src={getFoodImageById(food.id, food.category, food.imageUrl)}
+                  onError={handleFoodImageError(food.category)}
                   alt={name}
                   className="featured-img"
                   onClick={() => {

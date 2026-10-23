@@ -82,6 +82,7 @@
     "registerLink": "Registrieren"
   },
   "messages": {
+    "aiLimitReached": "Zu viele KI-Anfragen. Bitte versuchen Sie es später erneut.",
     "loginRequired": "Bitte zuerst einloggen.",
     "loginFailed": "Anmeldung fehlgeschlagen. Bitte erneut versuchen.",
     "registerSuccess": "Registrierung erfolgreich! Bitte anmelden.",
@@ -92,6 +93,10 @@
     "addedToCart": "Zum Warenkorb hinzugefügt"
   },
   "payment": {
+    "checking": "Zahlung wird geprüft...",
+    "pending": "Zahlung noch nicht bestätigt",
+    "pendingDesc": "Wir konnten Ihre Zahlung noch nicht bestätigen. Den aktuellen Stand sehen Sie unter „Meine Bestellungen“.",
+    "toMyOrders": "Zu meinen Bestellungen",
     "fail": "Zahlung fehlgeschlagen",
     "failDesc1": "Leider konnte Ihre Zahlung nicht verarbeitet werden.",
     "failDesc2": "Bitte versuchen Sie es erneut oder verwenden Sie ein anderes Zahlungsmittel.",
@@ -234,5 +239,13 @@
       "linkedinLabel": "Abdullah LinkedIn",
       "whatsappLabel": "Abdullah WhatsApp"
     }
+  },
+
+  "orderStatus": {
+    "PENDING": "Wartet auf Zahlung",
+    "PREPARING": "In Zubereitung",
+    "OUT_FOR_DELIVERY": "Unterwegs",
+    "DELIVERED": "Geliefert",
+    "CANCELLED": "Storniert"
   }
 }

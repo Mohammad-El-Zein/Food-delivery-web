@@ -36,6 +36,16 @@ public class OrderController {
         return paymentLink;
     }
 
+    @PostMapping("/{id}/verify")
+    public OrderEntity verifyPayment(@PathVariable String id) throws Exception {
+        return paymentService.verifyPayment(id);
+    }
+
+    @PostMapping("/{id}/cancel")
+    public OrderEntity cancelPayment(@PathVariable String id) throws Exception {
+        return paymentService.cancelPayment(id);
+    }
+
     @GetMapping
     public List<OrderEntity> getUserOrders() {
         String userId = userService.findByUserId();

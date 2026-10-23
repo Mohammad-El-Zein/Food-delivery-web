@@ -119,6 +119,7 @@
     "registerLink": "Register"
   },
   "messages": {
+    "aiLimitReached": "Too many AI requests. Please try again later.",
     "loginRequired": "Please log in first.",
     "loginFailed": "Login failed. Please try again.",
     "registerSuccess": "Registration successful! Please log in.",
@@ -130,6 +131,10 @@
   },
 
   "payment": {
+    "checking": "Checking payment...",
+    "pending": "Payment not confirmed yet",
+    "pendingDesc": "We could not confirm your payment yet. You can see the current status under \"My Orders\".",
+    "toMyOrders": "Go to my orders",
     "fail": "Payment failed",
     "failDesc1": "Unfortunately, your payment could not be processed.",
     "failDesc2": "Please try again or use a different payment method.",
@@ -256,5 +261,13 @@
       "linkedinLabel": "Abdullah LinkedIn",
       "whatsappLabel": "Abdullah WhatsApp"
     }
+  },
+
+  "orderStatus": {
+    "PENDING": "Awaiting payment",
+    "PREPARING": "Preparing",
+    "OUT_FOR_DELIVERY": "Out for delivery",
+    "DELIVERED": "Delivered",
+    "CANCELLED": "Cancelled"
   }
 }

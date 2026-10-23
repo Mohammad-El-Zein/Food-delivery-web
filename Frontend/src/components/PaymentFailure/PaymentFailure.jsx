@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Card from "@mui/material/Card";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@mui/material";
 import { red } from "@mui/material/colors";
 import { useTranslation } from "react-i18next";
+import { StoreContext } from "../../context/StoreContext";
+import { cancelPayment } from "../../service/orderService";
 
 const PaymentFailure = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { orderId } = useParams();
+  const { token } = useContext(StoreContext);
+
+  // Bestellung als storniert markieren (Backend prüft vorher bei Stripe)
+  useEffect(() => {
+    const authToken = token || localStorage.getItem("token");
+    if (authToken) {
+      cancelPayment(orderId, authToken).catch(() => {});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderId]);
 
   return (
     <section className="py-5">

@@ -32,6 +32,7 @@ public class AuthController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
         final String jwtToken = jwtUtil.generateToken(userDetails);
-        return new AuthenticationResponse(request.getEmail(), jwtToken);
+        final String role = userDetailsService.isAdmin(userDetails.getUsername()) ? "ADMIN" : "USER";
+        return new AuthenticationResponse(userDetails.getUsername(), jwtToken, role);
     }
 }

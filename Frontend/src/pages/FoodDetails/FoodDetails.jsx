@@ -8,7 +8,7 @@ import { StoreContext } from "../../context/StoreContext";
 import ScrollReveal from "scrollreveal";
 import "./FoodDetails.css";
 import { useTranslation } from "react-i18next";
-import { getFoodImageById } from "../../assets/assets";
+import { getFoodImageById, handleFoodImageError } from "../../assets/assets";
 
 const FoodDetails = () => {
   const { id } = useParams();
@@ -77,8 +77,10 @@ const FoodDetails = () => {
       const result = await analyzeNutrition(name, portion);
       setNutrition(result);
       setShowAI(false);
-    } catch {
-      toast.error(t("messages.aiEstimateFailed"));
+    } catch (e) {
+      toast.error(
+        t(e.response?.status === 429 ? "messages.aiLimitReached" : "messages.aiEstimateFailed")
+      );
     } finally {
       setLoading(false);
     }
@@ -137,7 +139,8 @@ const FoodDetails = () => {
             <div className="col-md-6">
               <img
                 className="card-img-top mb-5 mb-md-0"
-                 src={getFoodImageById(data.id, data.category)} 
+                 src={getFoodImageById(data.id, data.category, data.imageUrl)}
+                 onError={handleFoodImageError(data.category)}
                  alt={name}
               />
             </div>

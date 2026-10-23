@@ -115,9 +115,17 @@ const foodImageById = {
   "690e564867a51140be05dddc": beverageOrange,
 };
 
-export const getFoodImageById = (id, category) => {
+// Eigene Fotos für die Standard-Gerichte, sonst das im Admin-Panel hochgeladene Bild
+export const getFoodImageById = (id, category, imageUrl) => {
   if (id && foodImageById[id]) return foodImageById[id];
+  if (imageUrl) return imageUrl;
   return getFoodImageByCategory(category);
+};
+
+// Falls das hochgeladene Bild nicht lädt, Kategorie-Bild anzeigen
+export const handleFoodImageError = (category) => (event) => {
+  event.currentTarget.onerror = null;
+  event.currentTarget.src = getFoodImageByCategory(category);
 };
 
 export const getFoodImageByCategory = (category) => {
