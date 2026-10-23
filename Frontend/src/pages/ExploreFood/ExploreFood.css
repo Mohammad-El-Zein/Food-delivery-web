@@ -110,3 +110,19 @@
 
 
 
+
+/* Handy: Filterleiste darf nicht breiter als der Bildschirm werden */
+@media (max-width: 600px) {
+  .explore-filter-box {
+    flex-wrap: wrap;
+    padding: 12px;
+    max-width: 100%;
+  }
+  .explore-select {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+  .explore-search {
+    min-width: 0;
+  }
+}

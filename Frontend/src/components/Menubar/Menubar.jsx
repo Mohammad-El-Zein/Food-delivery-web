@@ -10,14 +10,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import ScrollReveal from "scrollreveal";
 import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 const Menubar = () => {
-  const { t, i18n } = useTranslation();
-
-  const toggleLanguage = () => {
-    const newLang = i18n.language === "de" ? "en" : "de";
-    i18n.changeLanguage(newLang);
-  };
+  const { t } = useTranslation();
 
   const [active, setActive] = useState("home");
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -134,18 +130,7 @@ const Menubar = () => {
     </ul>
 
     <div className="d-flex align-items-center gap-3 right-controls">
-      <button
-        className="btn-lang-circle"
-        onClick={() =>
-          i18n.changeLanguage(i18n.language === "de" ? "en" : "de")
-        }
-      >
-        <img
-          src={i18n.language === "de" ? "/flags/en.svg" : "/flags/de.svg"}
-          alt="lang"
-          className="flag-icon-circle"
-        />
-      </button>
+      <LanguageSwitcher />
 
       <div className="d-flex align-items-center gap-4 desktop-icons">
         {!token ? (

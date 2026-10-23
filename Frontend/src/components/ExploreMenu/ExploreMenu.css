@@ -88,3 +88,8 @@
 
     }
  }
+
+/* Karussell scrollt per Pfeiltasten (scrollLeft) – Richtung auch auf Arabisch gleich lassen */
+html[dir="rtl"] .explore-menu {
+  direction: ltr;
+}

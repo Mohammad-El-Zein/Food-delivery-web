@@ -408,3 +408,25 @@ nav.navbar {
   border-radius: 50%; 
 }
 
+
+/* Arabisch (rechts nach links): Abstände spiegeln */
+html[dir="rtl"] .navbar .desktop-links {
+  margin-right: 0 !important;
+  margin-left: auto !important;
+}
+
+html[dir="rtl"] .navbar .nav-link {
+  margin-right: 0 !important;
+  margin-left: 25px;
+}
+
+/* Handy: Logo, Sprache und Menü-Knopf immer in einer Zeile */
+@media (max-width: 800px) {
+  .navbar .nav-inner {
+    flex-wrap: nowrap;
+  }
+  .navbar .right-controls {
+    gap: 8px !important;
+    flex-shrink: 0;
+  }
+}

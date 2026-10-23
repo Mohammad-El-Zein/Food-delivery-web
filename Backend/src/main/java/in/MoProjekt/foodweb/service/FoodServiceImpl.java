@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
@@ -48,6 +49,7 @@ public class FoodServiceImpl implements FoodService {
     private String backendUrl;
 
     private static final String DB_IMAGE_PATH = "/api/foods/images/";
+    private static final String ALL_LANGUAGES = "all";
     private static final long MAX_DB_IMAGE_SIZE = 5 * 1024 * 1024;
 
     @Value("${aws.s3.bucketName}")
@@ -103,8 +105,9 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
 public List<FoodResponse> readFoods(String lang) {
+    // lang=all liefert alle Sprachen (für das Admin-Panel)
     return foodRepository.findAll().stream()
-            .map(food -> convertToResponse(food, lang))
+            .map(food -> ALL_LANGUAGES.equals(lang) ? convertToResponse(food) : convertToResponse(food, lang))
             .collect(Collectors.toList());
 }
 
@@ -113,7 +116,7 @@ public List<FoodResponse> readFoods(String lang) {
 public FoodResponse readFood(String id, String lang) {
     FoodEntity entity = foodRepository.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Food not found"));
-    return convertToResponse(entity, lang);
+    return ALL_LANGUAGES.equals(lang) ? convertToResponse(entity) : convertToResponse(entity, lang);
 }
 
 
@@ -133,8 +136,14 @@ public void deleteFood(String id) {
     // hole deutsche Version, reicht für delete
     FoodResponse response = readFood(id, "de");
 
-    String imageUrl = response.getImageUrl();
-    if (imageUrl != null && !imageUrl.isBlank()) {
+    deleteImage(response.getImageUrl());
+    foodRepository.deleteById(id);
+}
+
+    private void deleteImage(String imageUrl) {
+        if (imageUrl == null || imageUrl.isBlank()) {
+            return;
+        }
         String filename = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
         try {
             if (imageUrl.contains(DB_IMAGE_PATH)) {
@@ -148,11 +157,19 @@ public void deleteFood(String id) {
         }
     }
 
-    foodRepository.deleteById(id);
-}
-
 
    
+    // Gewünschte Sprache, sonst Englisch, sonst Deutsch
+    private String textFor(Map<String, String> texts, String lang) {
+        for (String candidate : List.of(lang, "en", "de")) {
+            String text = texts.get(candidate);
+            if (text != null && !text.isBlank()) {
+                return text;
+            }
+        }
+        return "";
+    }
+
     @SuppressWarnings("unchecked")
 private Map<String, String> cast(Object obj) {
     if (obj instanceof Map<?, ?> map) {
@@ -166,8 +183,8 @@ private FoodResponse convertToResponse(FoodEntity entity, String lang) {
     Map<String, String> nameMap = cast(entity.getName());
     Map<String, String> descMap = cast(entity.getDescription());
 
-    String name = nameMap.getOrDefault(lang, nameMap.getOrDefault("de", ""));
-    String desc = descMap.getOrDefault(lang, descMap.getOrDefault("de", ""));
+    String name = textFor(nameMap, lang);
+    String desc = textFor(descMap, lang);
 
     return FoodResponse.builder()
         .id(entity.getId())
@@ -188,9 +205,11 @@ public FoodResponse addFood(FoodRequest request, MultipartFile file) {
     }
     String imageUrl = storeImage(file);
 
+    validate(request);
+
     FoodEntity entity = new FoodEntity();
-    entity.setName(withEnglish(request.getName()));
-    entity.setDescription(withEnglish(request.getDescription()));
+    entity.setName(completeTranslations(request.getName()));
+    entity.setDescription(completeTranslations(request.getDescription()));
     entity.setCategory(request.getCategory());
     entity.setPrice(request.getPrice());
     entity.setImageUrl(imageUrl);
@@ -227,20 +246,71 @@ public FoodResponse addFood(FoodRequest request, MultipartFile file) {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found"));
     }
 
-    // Deutscher Text + KI-Übersetzung ins Englische (falls OpenAI nicht erreichbar: nur Deutsch)
-    private Map<String, String> withEnglish(String germanText) {
-        String de = germanText != null ? germanText.trim() : "";
-        try {
-            // höchstens 20 Sekunden auf OpenAI warten, sonst ohne Übersetzung speichern
-            String en = CompletableFuture.supplyAsync(() -> translator.translate(de, "English"))
-                    .get(20, TimeUnit.SECONDS);
-            if (en != null && !en.isBlank()) {
-                return Map.of("de", de, "en", en.trim());
+    @Override
+    public FoodResponse updateFood(String id, FoodRequest request, MultipartFile file) {
+        validate(request);
+        FoodEntity entity = foodRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Food not found"));
+
+        if (file != null && !file.isEmpty()) {
+            if (file.getContentType() == null || !file.getContentType().startsWith("image/")) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Please upload an image");
             }
-        } catch (Exception ex) {
-            System.out.println("Translation failed: " + ex.getMessage());
+            String oldImageUrl = entity.getImageUrl();
+            entity.setImageUrl(storeImage(file));
+            deleteImage(oldImageUrl);
         }
-        return Map.of("de", de);
+        entity.setName(completeTranslations(request.getName()));
+        entity.setDescription(completeTranslations(request.getDescription()));
+        entity.setCategory(request.getCategory());
+        entity.setPrice(request.getPrice());
+
+        return convertToResponse(foodRepository.save(entity));
+    }
+
+    @Override
+    public Map<String, String> translate(String germanText) {
+        return completeTranslations(Map.of("de", germanText));
+    }
+
+    private void validate(FoodRequest request) {
+        String germanName = request.getName().get("de");
+        if (germanName == null || germanName.isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "German name is required");
+        }
+        if (request.getPrice() < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Price must not be negative");
+        }
+    }
+
+    // Leere Sprachen per KI aus dem Deutschen übersetzen (falls OpenAI nicht erreichbar: leer lassen)
+    private Map<String, String> completeTranslations(Map<String, String> texts) {
+        Map<String, String> result = new HashMap<>();
+        texts.forEach((lang, text) -> {
+            if (OpenAITranslationService.LANGUAGES.containsKey(lang) && text != null && !text.isBlank()) {
+                result.put(lang, text.trim());
+            }
+        });
+        String de = result.getOrDefault("de", "");
+        if (de.isEmpty()) {
+            return result;
+        }
+        for (Map.Entry<String, String> language : OpenAITranslationService.LANGUAGES.entrySet()) {
+            if (result.containsKey(language.getKey())) {
+                continue;
+            }
+            try {
+                // höchstens 20 Sekunden auf OpenAI warten, sonst ohne Übersetzung speichern
+                String translated = CompletableFuture.supplyAsync(() -> translator.translate(de, language.getValue()))
+                        .get(20, TimeUnit.SECONDS);
+                if (translated != null && !translated.isBlank()) {
+                    result.put(language.getKey(), translated.trim());
+                }
+            } catch (Exception ex) {
+                System.out.println("Translation to " + language.getValue() + " failed: " + ex.getMessage());
+            }
+        }
+        return result;
     }
 
 

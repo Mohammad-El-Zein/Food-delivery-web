@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -39,15 +40,23 @@ public class FoodController {
     @PostMapping
     public FoodResponse addFood(@RequestPart("food") String foodString,
                                 @RequestPart("file")MultipartFile file){
-        ObjectMapper objectMapper = new ObjectMapper();
-        FoodRequest request= null;
+        return foodService.addFood(parseFood(foodString), file);
+    }
+
+    // Bild ist beim Bearbeiten optional
+    @PutMapping("/{id}")
+    public FoodResponse updateFood(@PathVariable String id,
+                                   @RequestPart("food") String foodString,
+                                   @RequestPart(value = "file", required = false) MultipartFile file) {
+        return foodService.updateFood(id, parseFood(foodString), file);
+    }
+
+    private FoodRequest parseFood(String foodString) {
         try {
-            request = objectMapper.readValue(foodString, FoodRequest.class);
+            return new ObjectMapper().readValue(foodString, FoodRequest.class);
         } catch (JsonProcessingException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid JSON format");
         }
-        FoodResponse response = foodService.addFood(request, file);
-        return response;
     }
 
     @GetMapping

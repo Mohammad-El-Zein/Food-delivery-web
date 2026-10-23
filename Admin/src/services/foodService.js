@@ -1,37 +1,43 @@
 import api from './api';
 
-export const addFood = async (foodData, image) => {
-    const formData = new FormData();
-    formData.append('food', JSON.stringify(foodData));
+const toFormData = (foodData, image) => {
+  const formData = new FormData();
+  formData.append('food', JSON.stringify(foodData));
+  if (image) {
     formData.append('file', image);
-
-   try { 
-      await api.post('/foods', formData);
-    } catch (error) {
-      console.log('Error', error);
-      throw error;  
-    } 
+  }
+  return formData;
 }
 
-export const getFoodList = async () => { 
+// lang=all liefert Name und Beschreibung in allen Sprachen
+export const getFoodList = async () => {
+  const response = await api.get('/foods', { params: { lang: 'all' } });
+  return response.data;
+}
 
-  try {
-    const response = await api.get('/foods');
-    return response.data;
+export const getFood = async (foodId) => {
+  const response = await api.get(`/foods/${foodId}`, { params: { lang: 'all' } });
+  return response.data;
+}
 
-  } catch (error) {
-    console.log('Fehler beim Abrufen der Essensliste', error);
-    throw error;  
-  }
+export const addFood = async (foodData, image) => {
+  const response = await api.post('/foods', toFormData(foodData, image));
+  return response.data;
+}
+
+// Bild ist beim Bearbeiten optional
+export const updateFood = async (foodId, foodData, image) => {
+  const response = await api.put(`/foods/${foodId}`, toFormData(foodData, image));
+  return response.data;
 }
 
 export const deleteFood = async (foodId) => {
-  try {
-   const response = await api.delete('/foods/'+foodId);
-    return response.status===204;
-  } catch (error) {
-    console.log('Fehler beim Löschen des Gerichts', error);
-    throw error;
-  }
+  const response = await api.delete(`/foods/${foodId}`);
+  return response.status === 204;
+}
 
+// Deutscher Text -> { de, en, ar }
+export const translateText = async (text) => {
+  const response = await api.post('/admin/translate', { text });
+  return response.data;
 }

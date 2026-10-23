@@ -36,7 +36,7 @@
 ### 🖥️ Frontend
 | Feature | Beschreibung |
 |---------|-------------|
-| 🌍 Mehrsprachigkeit | i18n-Unterstützung (Deutsch & Englisch) |
+| 🌍 Mehrsprachigkeit | Deutsch, Englisch & Arabisch (inkl. Rechts-nach-links-Layout) |
 | 🔐 Authentifizierung | JWT-basierte Benutzer-Registrierung und Login |
 | 🍽️ Menüübersicht | Alle Gerichte mit Details und Bildern |
 | 🛒 Warenkorb | Vollständiges Warenkorb-System |
@@ -56,9 +56,11 @@
 ### 👨‍💼 Admin Panel
 | Feature | Beschreibung |
 |---------|-------------|
-| 📊 Dashboard | Übersicht aller Bestellungen |
-| 🍕 Gerichte verwalten | Hinzufügen, Bearbeiten, Löschen von Menüeinträgen |
-| 📦 Bestellstatus | Bestellungen verfolgen und Status aktualisieren |
+| 📊 Dashboard | Umsatz, Bestellungen, Umsatz-Diagramm und beliebteste Gerichte |
+| 🍕 Gerichte verwalten | Hinzufügen, Bearbeiten, Löschen – in 3 Sprachen mit KI-Übersetzung |
+| 📦 Bestellstatus | Bestellungen filtern, durchsuchen und Status aktualisieren |
+| 👤 Profil | Kontodaten ansehen, Name und Passwort ändern |
+| 🔐 Admin-Login | Zugriff nur für Admin-Konten (JWT + Rolle) |
 
 ---
 

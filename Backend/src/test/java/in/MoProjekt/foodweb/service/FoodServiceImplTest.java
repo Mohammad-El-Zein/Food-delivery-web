@@ -69,6 +69,51 @@ class FoodServiceImplTest {
     }
 
     @Test
+    void missingLanguagesFallBackToEnglishThenGerman() {
+        FoodEntity food = FoodEntity.builder().id("f1")
+                .name(java.util.Map.of("de", "Nudeln", "en", "Noodles"))
+                .description(java.util.Map.of("de", "Lecker"))
+                .build();
+        when(foodRepository.findAll()).thenReturn(java.util.List.of(food));
+
+        FoodResponse arabic = foodService.readFoods("ar").get(0);
+
+        assertEquals(java.util.Map.of("ar", "Noodles"), arabic.getName());
+        assertEquals(java.util.Map.of("ar", "Lecker"), arabic.getDescription());
+        assertEquals(food.getName(), foodService.readFoods("all").get(0).getName());
+    }
+
+    @Test
+    void updateKeepsImageAndOnlyTranslatesEmptyLanguages() {
+        FoodEntity food = FoodEntity.builder().id("f1").imageUrl("https://img/old.jpg").build();
+        when(foodRepository.findById("f1")).thenReturn(java.util.Optional.of(food));
+        when(foodRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(translator.translate("Lecker", "English")).thenReturn("Tasty");
+
+        FoodRequest request = new FoodRequest();
+        request.setName(java.util.Map.of("de", "Pizza", "en", "Pizza", "ar", "بيتزا"));
+        request.setDescription(java.util.Map.of("de", "Lecker", "ar", "لذيذ"));
+        request.setCategory("Pizza");
+        request.setPrice(11);
+
+        FoodResponse response = foodService.updateFood("f1", request, null);
+
+        assertEquals("https://img/old.jpg", response.getImageUrl());
+        assertEquals(java.util.Map.of("de", "Pizza", "en", "Pizza", "ar", "بيتزا"), response.getName());
+        assertEquals(java.util.Map.of("de", "Lecker", "en", "Tasty", "ar", "لذيذ"), response.getDescription());
+        verify(translator, org.mockito.Mockito.times(1)).translate(anyString(), anyString());
+    }
+
+    @Test
+    void foodRequestAcceptsTextOrLanguageMap() throws Exception {
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        FoodRequest legacy = mapper.readValue("{\"name\":\"Pizza\",\"price\":5}", FoodRequest.class);
+        FoodRequest multi = mapper.readValue("{\"name\":{\"de\":\"Pizza\",\"ar\":\"بيتزا\"}}", FoodRequest.class);
+        assertEquals(java.util.Map.of("de", "Pizza"), legacy.getName());
+        assertEquals("بيتزا", multi.getName().get("ar"));
+    }
+
+    @Test
     void nonImageUploadIsRejected() {
         MockMultipartFile file = new MockMultipartFile("file", "x.txt", "text/plain", new byte[] { 1 });
         assertThrows(ResponseStatusException.class, () -> foodService.addFood(new FoodRequest(), file));

@@ -1,6 +1,7 @@
 package in.MoProjekt.foodweb.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,4 +24,9 @@ public interface FoodService {
     String uploadFile(MultipartFile file);
 
     FoodImageEntity readImage(String id);
+
+    FoodResponse updateFood(String id, FoodRequest request, MultipartFile file);
+
+    // Deutscher Text -> { de, en, ar }
+    Map<String, String> translate(String germanText);
 }
