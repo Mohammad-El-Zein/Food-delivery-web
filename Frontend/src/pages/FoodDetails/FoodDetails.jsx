@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { fetchFoodDetails } from "../../service/foodService";
@@ -7,6 +8,7 @@ import { StoreContext } from "../../context/StoreContext";
 import ScrollReveal from "scrollreveal";
 import "./FoodDetails.css";
 import { useTranslation } from "react-i18next";
+import { getFoodImageById } from "../../assets/assets";
 
 const FoodDetails = () => {
   const { id } = useParams();
@@ -135,8 +137,8 @@ const FoodDetails = () => {
             <div className="col-md-6">
               <img
                 className="card-img-top mb-5 mb-md-0"
-                src={data.imageUrl}
-                alt={name}
+                 src={getFoodImageById(data.id, data.category)} 
+                 alt={name}
               />
             </div>
 

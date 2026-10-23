@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useState } from "react";
 import "./PlaceOrder.css";
 import { assets } from "../../assets/assets";
@@ -5,6 +6,7 @@ import { StoreContext } from "../../context/StoreContext";
 import { calculateCartTotals } from "../../util/cartUtils";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { getFoodImageById } from "../../assets/assets";
 
 const PlaceOrder = () => {
   const { foodList, quantities, token } = useContext(StoreContext);
@@ -54,7 +56,7 @@ const PlaceOrder = () => {
         price: item.price,
         name: safeText(item.name), // FIXED
         description: safeText(item.description), // FIXED
-        imageUrl: item.imageUrl,
+        imageUrl: getFoodImageById(item.id, item.category), 
         category: item.category,
       }));
 

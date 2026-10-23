@@ -4,6 +4,7 @@ import { StoreContext } from "../../context/StoreContext";
 import { Link, useNavigate } from "react-router-dom";
 import { calculateCartTotals } from "../../util/cartUtils";
 import { useTranslation } from "react-i18next";
+import { getFoodImageById } from "../../assets/assets";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const Cart = () => {
 
   const { t } = useTranslation();
 
+  // eslint-disable-next-line no-unused-vars
   const translateCategory = (cat) => {
   return t(`categoryMap.${cat}`, cat);
 };
@@ -56,8 +58,9 @@ const Cart = () => {
                 return (
                   <div key={food.id} className="row cart-item">
                     <div className="col-md-3 d-flex justify-content-center">
-                      <img src={food.imageUrl} alt={name} className="cart-img" />
-                    </div>
+                    <img src={getFoodImageById(food.id, food.category)} 
+                    alt={name} className="cart-img" />                   
+                     </div>
 
                     <div className="col-md-5">
                       <h5 className="cart-title">{name}</h5>

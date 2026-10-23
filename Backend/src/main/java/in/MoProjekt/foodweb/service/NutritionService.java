@@ -1,10 +1,12 @@
 package in.MoProjekt.foodweb.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import in.MoProjekt.foodweb.io.NutritionRequest;
-import in.MoProjekt.foodweb.io.NutritionResponse;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import in.MoProjekt.foodweb.io.NutritionRequest;
+import in.MoProjekt.foodweb.io.NutritionResponse;
 
 @Service
 public class NutritionService {
@@ -42,7 +44,7 @@ public class NutritionService {
                 .content()
                 .trim();   // Wichtig: Entfernt Whitespaces oder Zeilenumbrüche
 
-        // ---- Output sicher parsen ----
+    
         // Falls das AI-Modell Text um das JSON herum hat, extrahieren wir das JSON
         if (!output.startsWith("{")) {
             int start = output.indexOf("{");

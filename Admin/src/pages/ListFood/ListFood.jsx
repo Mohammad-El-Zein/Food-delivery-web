@@ -1,9 +1,14 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify'; 
 import './ListFood.css';
-import { getFoodList } from '../../services/foodService';
-import { deleteFood } from '../../services/foodService';
+import { getFoodList, deleteFood } from '../../services/foodService';
+
+// Das Backend liefert name als Objekt pro Sprache, z. B. { de: "Pizza Margherita" }
+const getText = (value) => {
+  if (!value) return '';
+  if (typeof value === 'string') return value;
+  return value.de || Object.values(value)[0] || '';
+};
 
 
 
@@ -15,13 +20,14 @@ const ListFood = () => {
     try {
       const data = await getFoodList();
       setList(data);
-    }catch (error) {
+    } catch {
       toast.error('Fehler beim Lesen der Gerichte.');
     }
     
   }
 
   const removeFood = async (foodId) => {
+    if (!window.confirm('Dieses Gericht wirklich löschen?')) return;
     try {
       const success = await deleteFood(foodId);
       if(success) { 
@@ -31,7 +37,7 @@ const ListFood = () => {
         toast.error('Fehler beim Löschen des Gerichts.');
       }
       
-    } catch (error) {
+    } catch {
       toast.error('Fehler beim Löschen des Gerichts.');
       
     }
@@ -58,17 +64,17 @@ const ListFood = () => {
           </tr>
         </thead>
         <tbody>
-          { list.map( (item, index) => {
+          { list.map( (item) => {
             return (
-              <tr key={index}>
+              <tr key={item.id}>
                 <td>
-                  <img src={item.imageUrl} alt="" height={48} width={48} />
+                  <img src={item.imageUrl} alt={getText(item.name)} height={48} width={48} />
                 </td>
-                <td>{item.name}</td>
+                <td>{getText(item.name)}</td>
                 <td>{item.category}</td>
-                <td>{item.price}.00 € </td>
+                <td>{Number(item.price).toFixed(2)} €</td>
                 <td className='text-danger'>
-                  <i className='bi bi-x-circle-fill' onClick={() => removeFood(item.id)}></i>
+                  <i className='bi bi-x-circle-fill' role='button' title='Löschen' onClick={() => removeFood(item.id)}></i>
                  </td>
                 </tr>
             )
