@@ -78,6 +78,13 @@
 			<version>1.0.0-M1</version>
 		</dependency>
 
+		<!-- Claude API als Fallback, wenn das OpenAI-Limit erreicht ist -->
+		<dependency>
+			<groupId>com.anthropic</groupId>
+			<artifactId>anthropic-java</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
