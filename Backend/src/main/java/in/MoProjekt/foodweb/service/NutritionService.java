@@ -35,7 +35,7 @@ public class NutritionService {
 
     public NutritionService(ChatClient.Builder chatClientBuilder,
                             @Value("${anthropic.api-key:}") String anthropicApiKey,
-                            @Value("${anthropic.model:claude-opus-5-5}") String claudeModel) {
+                            @Value("${anthropic.model:claude-haiku-5-5}") String claudeModel) {
         this.chatClient = chatClientBuilder.build();
         this.claudeModel = claudeModel;
         this.claudeClient = anthropicApiKey == null || anthropicApiKey.isBlank()
