@@ -84,6 +84,7 @@
   "messages": {
     "aiLimitReached": "Zu viele KI-Anfragen. Bitte versuchen Sie es später erneut.",
     "loginRequired": "Bitte zuerst einloggen.",
+    "sessionExpired": "Deine Sitzung ist abgelaufen. Bitte melde dich erneut an.",
     "loginFailed": "Anmeldung fehlgeschlagen. Bitte erneut versuchen.",
     "registerSuccess": "Registrierung erfolgreich! Bitte anmelden.",
     "registerFailed": "Registrierung fehlgeschlagen. Bitte erneut versuchen.",
