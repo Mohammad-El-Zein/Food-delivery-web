@@ -121,6 +121,7 @@
   "messages": {
     "aiLimitReached": "Too many AI requests. Please try again later.",
     "loginRequired": "Please log in first.",
+    "sessionExpired": "Your session has expired. Please log in again.",
     "loginFailed": "Login failed. Please try again.",
     "registerSuccess": "Registration successful! Please log in.",
     "registerFailed": "Registration failed. Please try again.",

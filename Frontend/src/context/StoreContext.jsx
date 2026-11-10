@@ -10,6 +10,8 @@ import {
 } from "../service/cartService.js";
 
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const StoreContext = createContext(null);
 
@@ -18,7 +20,30 @@ export const StoreContextProvider = (props) => {
   const [quantities, setQuantities] = useState({});
   const [token, setToken] = useState("");
   const { i18n } = useTranslation();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const lang = i18n.language;
+
+  // Abgelaufener/ungültiger Login (401 vom Backend): Token löschen und zum Login schicken,
+  // sonst bleibt man scheinbar eingeloggt und Warenkorb/Bestellung schlagen immer fehl
+  useEffect(() => {
+    const interceptor = axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        const url = error.config?.url || "";
+        const isAuthCall = url.includes("/api/login") || url.includes("/api/register");
+        if (error.response?.status === 401 && !isAuthCall && localStorage.getItem("token")) {
+          localStorage.removeItem("token");
+          setToken("");
+          setQuantities({});
+          toast.info(t("messages.sessionExpired"), { toastId: "session-expired" });
+          navigate("/login");
+        }
+        return Promise.reject(error);
+      }
+    );
+    return () => axios.interceptors.response.eject(interceptor);
+  }, [navigate, t]);
 
   const increaseQty = async (foodId) => {
     setQuantities((prev) => ({ ...prev, [foodId]: (prev[foodId] || 0) + 1 }));
