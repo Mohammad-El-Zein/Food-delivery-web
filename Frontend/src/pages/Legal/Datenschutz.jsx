@@ -46,8 +46,15 @@ const Datenschutz = () => {
         Die Website (Frontend) wird über <Todo>Hosting-Anbieter des Frontends bestätigen, z. B. Netlify</Todo>{" "}
         ausgeliefert. Die Programmierschnittstelle (Backend) läuft bei Railway{" "}
         <Todo>Region und Vertragspartner bestätigen</Todo>. Beim Aufruf der Seiten verarbeiten
-        diese Anbieter technisch notwendige Verbindungsdaten wie die IP-Adresse.{" "}
-        <Todo>welche Server-Logs gespeichert werden und wie lange</Todo>
+        diese Anbieter technisch notwendige Verbindungsdaten wie die IP-Adresse.
+      </p>
+      <p>
+        Das Backend schreibt Protokollmeldungen (Server-Logs) in die Konsole, die Railway
+        aufzeichnet. Dazu gehören Startmeldungen und Fehlermeldungen, zum Beispiel wenn eine
+        Anfrage an den KI-Dienst oder ein Bild-Upload fehlschlägt. Die App protokolliert dabei
+        keine IP-Adressen und keine Inhalte von Konten oder Bestellungen; ein
+        Zugriffsprotokoll ist im Backend nicht eingeschaltet.{" "}
+        <Todo>prüfen, ob und wie lange Railway und der Frontend-Hoster eigene Zugriffsprotokolle (z. B. IP-Adresse, aufgerufene Adresse) speichern</Todo>
       </p>
       <p>
         Die Daten der App werden in einer MongoDB-Datenbank gespeichert.{" "}
@@ -69,7 +76,10 @@ const Datenschutz = () => {
       <p>
         Rechtsgrundlage: <Todo>prüfen, z. B. Art. 6 Abs. 1 lit. b DSGVO</Todo>
         <br />
-        Speicherdauer: <Todo>Speicherdauer festlegen; derzeit gibt es keine Funktion zum Löschen des Kontos in der App</Todo>
+        Speicherdauer: <Todo>Speicherdauer festlegen</Todo>
+      </p>
+      <p>
+        Zur Löschung deines Kontos schreibe an <Todo>E-Mail-Adresse</Todo>.
       </p>
 
       <h2>4. Bestellungen</h2>
@@ -121,7 +131,7 @@ const Datenschutz = () => {
         <Todo>Vertragspartner, Serverstandort und Drittlandübermittlung bei OpenAI und Anthropic angeben</Todo>
       </p>
 
-      <h2>7. Lokaler Speicher im Browser (localStorage)</h2>
+      <h2>7. Lokaler Speicher im Browser und Cookies</h2>
       <p>Die App legt im lokalen Speicher deines Browsers ab:</p>
       <ul>
         <li>
@@ -133,19 +143,26 @@ const Datenschutz = () => {
         </li>
       </ul>
       <p>
-        Die App selbst setzt keine Cookies und verwendet keine Analyse- oder Tracking-Dienste.{" "}
-        <Todo>prüfen, ob Hosting-Anbieter oder Stripe auf ihren Seiten Cookies setzen</Todo>
+        Diese Einträge werden nur für die genannten Funktionen genutzt und nicht an Dritte
+        weitergegeben; der Anmelde-Token wird bei Anfragen an unser Backend mitgeschickt.
+        Die App selbst setzt keine Cookies (auch das Backend erzeugt keine Sitzungs-Cookies)
+        und verwendet keine Analyse- oder Tracking-Dienste.{" "}
+        <Todo>prüfen, welche Cookies Stripe auf seiner Bezahlseite setzt und ob der Frontend-Hoster Cookies setzt</Todo>
       </p>
 
-      <h2>8. Schriftarten und Bilder von externen Servern</h2>
+      <h2>8. Schriftarten und Bilder</h2>
       <p>
-        Die Schriftarten werden von Google Fonts (fonts.googleapis.com) geladen. Dabei wird
-        deine IP-Adresse an Google übermittelt.{" "}
-        <Todo>Anbieter und Rechtsgrundlage angeben oder Schriftarten lokal einbinden</Todo>
+        Die Schriftarten sind in die Website eingebunden und werden von unserem eigenen
+        Server geladen. Es wird keine Verbindung zu Google Fonts oder anderen
+        Schriftarten-Diensten aufgebaut.
       </p>
       <p>
-        Bilder von Gerichten können von einem externen Speicher geladen werden.{" "}
-        <Todo>prüfen, ob Bilder von Amazon Web Services (S3) geladen werden, und Anbieter angeben</Todo>
+        Die meisten Bilder von Gerichten sind direkt in die Website eingebunden. Für Gerichte,
+        die im Admin-Bereich mit eigenem Bild angelegt werden, wird das Bild entweder bei
+        Amazon Web Services (Speicherdienst S3, Region eu-north-1, Stockholm) oder in unserer
+        Datenbank gespeichert. Liegt ein Bild bei S3, lädt dein Browser es direkt von den
+        Servern von Amazon; dabei wird deine IP-Adresse an Amazon übermittelt.{" "}
+        <Todo>prüfen, ob in der Datenbank aktuell Gerichte mit S3-Bildadresse gespeichert sind, und ggf. Anbieter (Amazon Web Services) und Rechtsgrundlage angeben</Todo>
       </p>
 
       <h2>9. Kontaktformular und Newsletter</h2>
@@ -156,7 +173,7 @@ const Datenschutz = () => {
 
       <h2>10. Links zu GitHub und LinkedIn</h2>
       <p>
-        Im Footer verlinken wir auf die Profile der Entwickler bei GitHub und LinkedIn. Erst
+        Im Footer verlinken wir auf die Profile des Entwicklers bei GitHub und LinkedIn. Erst
         wenn du einen Link anklickst, wird die jeweilige Seite geöffnet; dann gelten deren
         Datenschutzbestimmungen.
       </p>

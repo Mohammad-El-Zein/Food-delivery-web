@@ -221,9 +221,6 @@
     "noItems": "لا توجد أطباق متاحة.",
     "showDetails": "عرض"
   },
-  "demoBanner": {
-    "text": "مشروع تجريبي – ليس مطعماً حقيقياً. المدفوعات تعمل في وضع الاختبار."
-  },
   "footer": {
     "restaurantTitle": "Flavor Haus (تجريبي)",
     "fictionalNote": "مطعم وهمي – جميع بيانات التواصل غير حقيقية.",
@@ -235,7 +232,6 @@
     "developedBy": "تطوير",
     "aboutTitle": "عن هذا المشروع",
     "aboutText": "Flavor Haus مشروع تجريبي من طالبَين في علوم الحاسوب في جامعة دورتموند التقنية. طورنا هذا الموقع المتكامل بأنفسنا باستخدام React وSpring Boot وMongoDB وStripe (وضع الاختبار) وأضفنا إليه ميزات الذكاء الاصطناعي. لا يوجد مطعم حقيقي ولا طلبات حقيقية.",
-    "moreAboutUsBtn": "اقرأ المزيد عنا",
     "copyright": "© {{year}} Flavor Haus – مشروع تجريبي",
     "imprint": "بيانات الناشر (Impressum)",
     "privacy": "سياسة الخصوصية",
@@ -247,12 +243,6 @@
       "role": "طالب علوم حاسوب",
       "githubLabel": "GitHub محمد",
       "linkedinLabel": "LinkedIn محمد"
-    },
-    "abdullah": {
-      "name": "عبدالله القزاز",
-      "role": "طالب علوم حاسوب",
-      "githubLabel": "GitHub عبدالله",
-      "linkedinLabel": "LinkedIn عبدالله"
     }
   },
   "orderStatus": {

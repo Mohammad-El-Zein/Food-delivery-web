@@ -111,8 +111,7 @@ const ContactUs = () => {
               <div className="contact-signature text-center mt-4">
                 <p className="signature-text">
                   {t("footer.developedBy")}{" "}
-                  <strong>Mohammad El-Zein</strong> &{" "}
-                  <strong>Abdullah Al-Qazzaz</strong>
+                  <strong>Mohammad El Zein</strong>
                 </p>
               </div>
             </div>

@@ -13,9 +13,4 @@ export const DEVELOPERS = [
     github: "https://github.com/Mohammad-El-Zein",
     linkedin: "https://www.linkedin.com/in/mohammad-el-zein-501b01339/",
   },
-  {
-    key: "abdullah",
-    github: "https://github.com/alqazzaaz",
-    linkedin: "https://www.linkedin.com/in/abdullah-al-qazzaz-93b316367/",
-  },
 ];

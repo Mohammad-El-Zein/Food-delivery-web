@@ -69,9 +69,6 @@ const Footer = () => {
           <section className="site-footer-col">
             <h3>{t("footer.aboutTitle")}</h3>
             <p>{t("footer.aboutText")}</p>
-            <Link to="/moredetails" className="site-footer-btn">
-              {t("footer.moreAboutUsBtn")}
-            </Link>
           </section>
         </div>
 

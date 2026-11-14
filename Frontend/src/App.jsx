@@ -15,7 +15,6 @@ import PaymentFailure from "./components/PaymentFailure/PaymentFailure";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import Moredetails from "./pages/Moredetails/Moredetails";
 import Footer from "./components/Footer/Footer";
-import DemoBanner from "./components/DemoBanner/DemoBanner";
 import Impressum from "./pages/Legal/Impressum";
 import Datenschutz from "./pages/Legal/Datenschutz";
 
@@ -29,7 +28,6 @@ const App = () => {
 
   return (
     <div className="app-shell">
-      <DemoBanner />
       {shouldShowNavbar && <Menubar />}
 
       <ToastContainer autoClose={2000} />

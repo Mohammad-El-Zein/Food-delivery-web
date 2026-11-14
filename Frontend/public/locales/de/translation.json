@@ -221,9 +221,6 @@
     "p6": "Derzeit beschäftige ich mich intensiv mit <strong>Cloud-Technologien</strong> und bereite mich auf die <strong>Microsoft Azure Fundamentals-Zertifizierung</strong> vor. Langfristig möchte ich mich im Bereich <strong>Cloud- und DevOps-Engineering</strong> spezialisieren, um spannende Projekte in der Softwareentwicklung umzusetzen und mein Wissen kontinuierlich zu erweitern.",
     "p7": "Ich liebe es, Neues zu lernen, Herausforderungen anzunehmen und meine Ideen in funktionierende Software umzusetzen. Auf dieser Website möchte ich nicht nur meine bisherigen Projekte vorstellen, sondern auch zeigen, dass ich motiviert bin, mich fachlich weiterzuentwickeln und praxisnah zu arbeiten."
   },
-  "demoBanner": {
-    "text": "Demo-Projekt – kein echtes Restaurant. Zahlungen laufen im Testmodus."
-  },
   "footer": {
     "restaurantTitle": "Flavor Haus (Demo)",
     "fictionalNote": "Fiktives Restaurant – alle Kontaktdaten sind erfunden.",
@@ -235,7 +232,6 @@
     "developedBy": "Entwickelt von",
     "aboutTitle": "Über dieses Projekt",
     "aboutText": "Flavor Haus ist ein Demo-Projekt von zwei Informatik-Studenten der TU Dortmund. Diese Full-Stack-Website haben wir eigenständig mit React, Spring Boot, MongoDB und Stripe (Testmodus) umgesetzt und um KI-Funktionen erweitert. Es gibt kein echtes Restaurant und keine echten Bestellungen.",
-    "moreAboutUsBtn": "Mehr über uns lesen",
     "copyright": "© {{year}} Flavor Haus – Demo-Projekt",
     "imprint": "Impressum",
     "privacy": "Datenschutz",
@@ -247,12 +243,6 @@
       "role": "Informatik Student",
       "githubLabel": "Mohammad GitHub",
       "linkedinLabel": "Mohammad LinkedIn"
-    },
-    "abdullah": {
-      "name": "Abdullah Al Qazzaz",
-      "role": "Informatik Student",
-      "githubLabel": "Abdullah GitHub",
-      "linkedinLabel": "Abdullah LinkedIn"
     }
   },
 

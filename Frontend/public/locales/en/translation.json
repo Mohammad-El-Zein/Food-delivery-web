@@ -242,9 +242,6 @@
     "showDetails": "View"
   },
 
-  "demoBanner": {
-    "text": "Demo project – not a real restaurant. Payments run in test mode."
-  },
   "footer": {
     "restaurantTitle": "Flavor Haus (Demo)",
     "fictionalNote": "Fictional restaurant – all contact details are made up.",
@@ -256,7 +253,6 @@
     "developedBy": "Developed by",
     "aboutTitle": "About this project",
     "aboutText": "Flavor Haus is a demo project by two Computer Science students at TU Dortmund University. We built this full-stack website ourselves with React, Spring Boot, MongoDB and Stripe (test mode) and added AI features. There is no real restaurant and no real orders.",
-    "moreAboutUsBtn": "Read more about us",
     "copyright": "© {{year}} Flavor Haus – Demo project",
     "imprint": "Legal notice (Impressum)",
     "privacy": "Privacy policy",
@@ -269,12 +265,6 @@
       "role": "Computer Science Student",
       "githubLabel": "Mohammad GitHub",
       "linkedinLabel": "Mohammad LinkedIn"
-    },
-    "abdullah": {
-      "name": "Abdullah Al Qazzaz",
-      "role": "Computer Science Student",
-      "githubLabel": "Abdullah GitHub",
-      "linkedinLabel": "Abdullah LinkedIn"
     }
   },
 
