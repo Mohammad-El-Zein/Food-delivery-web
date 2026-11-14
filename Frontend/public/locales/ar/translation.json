@@ -53,7 +53,8 @@
     "title": "اشترك الآن واحصل على خصم 10%",
     "subtitle": "كن أول من يتلقى آخر الأخبار والعروض والمزيد!",
     "emailPlaceholder": "أدخل بريدك الإلكتروني",
-    "button": "اشترك"
+    "button": "اشترك",
+    "demoNotice": "تجريبي: لا يتم حفظ أي بيانات."
   },
   "cart": {
     "title": "سلة التسوق",
@@ -87,7 +88,10 @@
     "emailPlaceholder": "البريد الإلكتروني",
     "phonePlaceholder": "رقم الهاتف",
     "addressPlaceholder": "الشارع، رقم المنزل، إلخ.",
-    "zipPlaceholder": "الرمز البريدي"
+    "zipPlaceholder": "الرمز البريدي",
+    "testModeTitle": "وضع الاختبار:",
+    "testModeText": "لن يتم خصم أي مبلغ حقيقي. لا تُدخل بيانات بطاقة حقيقية، بل استخدم بطاقة Stripe التجريبية",
+    "testModeDetails": "تاريخ الانتهاء: أي تاريخ مستقبلي، رمز CVC: أي ثلاثة أرقام."
   },
   "myorders": {
     "c": "عناصر"
@@ -147,7 +151,8 @@
     "firstNamePlaceholder": "الاسم الأول",
     "lastNamePlaceholder": "اسم العائلة",
     "emailPlaceholder": "البريد الإلكتروني",
-    "messagePlaceholder": "رسالتك"
+    "messagePlaceholder": "رسالتك",
+    "demoInfoTitle": "Flavor Haus (تجريبي) – بيانات تواصل وهمية"
   },
   "modals": {
     "aiEstimateTitle": "تقدير حجم الحصة",
@@ -217,28 +222,27 @@
     "showDetails": "عرض"
   },
   "footer": {
+    "restaurantTitle": "Flavor Haus (تجريبي)",
+    "fictionalNote": "مطعم وهمي – جميع بيانات التواصل غير حقيقية.",
+    "fictionalSuffix": "(وهمي)",
+    "phoneLabel": "الهاتف",
+    "emailLabel": "البريد الإلكتروني",
+    "hoursLabel": "ساعات العمل",
+    "hours": "الإثنين–الأحد 11–22 (وهمي)",
     "developedBy": "تطوير",
-    "moreAboutMeBtn": "اقرأ المزيد عني",
-    "aboutTitle": "من نحن",
-    "aboutText": "نحن طالبان مجتهدان وطموحان في علوم الحاسوب في جامعة دورتموند التقنية، ولدينا شغف كبير بتكنولوجيا المعلومات. طورنا هذا الموقع المتكامل بأنفسنا باستخدام React وSpring Boot وMongoDB وStripe، وأضفنا إليه ميزات تعتمد على الذكاء الاصطناعي لتعزيز مهاراتنا التقنية والاستعداد لمسيرتنا المهنية.",
-    "copyright": "© 2025 A&M Flavor Haus. جميع الحقوق محفوظة."
+    "aboutTitle": "عن هذا المشروع",
+    "aboutText": "Flavor Haus مشروع تجريبي من طالبَين في علوم الحاسوب في جامعة دورتموند التقنية. طورنا هذا الموقع المتكامل بأنفسنا باستخدام React وSpring Boot وMongoDB وStripe (وضع الاختبار) وأضفنا إليه ميزات الذكاء الاصطناعي. لا يوجد مطعم حقيقي ولا طلبات حقيقية.",
+    "copyright": "© {{year}} Flavor Haus – مشروع تجريبي",
+    "imprint": "بيانات الناشر (Impressum)",
+    "privacy": "سياسة الخصوصية",
+    "legalNav": "معلومات قانونية"
   },
   "people": {
     "mohammad": {
       "name": "محمد الزين",
       "role": "طالب علوم حاسوب",
-      "email": "mhmdzein70781311@gmail.com",
       "githubLabel": "GitHub محمد",
-      "linkedinLabel": "LinkedIn محمد",
-      "whatsappLabel": "WhatsApp محمد"
-    },
-    "abdullah": {
-      "name": "عبدالله القزاز",
-      "role": "طالب علوم حاسوب",
-      "email": "abood.emad10@yahoo.com",
-      "githubLabel": "GitHub عبدالله",
-      "linkedinLabel": "LinkedIn عبدالله",
-      "whatsappLabel": "WhatsApp عبدالله"
+      "linkedinLabel": "LinkedIn محمد"
     }
   },
   "orderStatus": {

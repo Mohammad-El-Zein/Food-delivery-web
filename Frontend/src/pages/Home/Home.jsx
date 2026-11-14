@@ -5,7 +5,6 @@ import FoodDisplay from '../../components/FoodDisplay/FoodDisplay';
 import { useState } from 'react';
 import './Home.css';
 import Testimonials from '../Testimonials/Testimonials';
-import Aboutus from '../Aboutus/Aboutus';
 import FeaturedFoods from '../../components/FeaturedFoods/FeaturedFoods';
 
 const Home = () => {
@@ -16,7 +15,6 @@ const Home = () => {
       <FeaturedFoods />
       <ExploreMenu category={category} setCategory={setCategory} />
       <Testimonials />
-      <Aboutus />
       
     </main>
     

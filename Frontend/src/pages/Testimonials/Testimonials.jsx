@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Testimonials.css";
 import { assets } from "../../assets/assets";
 import ScrollReveal from "scrollreveal";
@@ -6,6 +6,15 @@ import { useTranslation } from "react-i18next";
 
 const Testimonials = () => {
   const { t } = useTranslation();
+  // Demo: die E-Mail wird weder gespeichert noch ans Backend gesendet
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterSent, setNewsletterSent] = useState(false);
+
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    setNewsletterEmail("");
+    setNewsletterSent(true);
+  };
 
   useEffect(() => {
     const sr = ScrollReveal({
@@ -108,17 +117,28 @@ const Testimonials = () => {
       <div className="newsletter container" id="newsletter">
         <h2>{t("newsletter.title")}</h2>
         <p>{t("newsletter.subtitle")}</p>
-        <form action="">
+        <form onSubmit={handleNewsletterSubmit}>
           <input
             type="email"
             className="email"
             placeholder={t("newsletter.emailPlaceholder")}
+            aria-label={t("newsletter.emailPlaceholder")}
+            value={newsletterEmail}
+            onChange={(e) => {
+              setNewsletterEmail(e.target.value);
+              setNewsletterSent(false);
+            }}
             required
           />
           <button type="submit" className="s-btn">
             {t("newsletter.button")}
           </button>
         </form>
+        {newsletterSent && (
+          <p className="newsletter-demo-notice" role="status">
+            {t("newsletter.demoNotice")}
+          </p>
+        )}
       </div>
     </section>
   );
