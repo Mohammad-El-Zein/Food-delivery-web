@@ -14,13 +14,13 @@ import PaymentSuccess from "./components/PaymentSuccess/PaymentSuccess";
 import PaymentFailure from "./components/PaymentFailure/PaymentFailure";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import Moredetails from "./pages/Moredetails/Moredetails";
-import { useTranslation } from "react-i18next";
+import Footer from "./components/Footer/Footer";
+import DemoBanner from "./components/DemoBanner/DemoBanner";
+import Impressum from "./pages/Legal/Impressum";
+import Datenschutz from "./pages/Legal/Datenschutz";
 
 const App = () => {
   const location = useLocation();
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language;
-
 
   // Routen, auf denen die Menubar NICHT angezeigt werden soll
   const hideNavbarOn = ["/Moredetails"]; // ggf. weitere Pfade hinzufügen
@@ -28,24 +28,33 @@ const App = () => {
   const shouldShowNavbar = !hideNavbarOn.includes(location.pathname);
 
   return (
-    <div>
+    <div className="app-shell">
+      <DemoBanner />
       {shouldShowNavbar && <Menubar />}
 
       <ToastContainer autoClose={2000} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/explore" element={<ExploreFood />} />
-        <Route path="/food/:id" element={<FoodDetails />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/order" element={<PlaceOrder />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/payment/success/:orderId" element={<PaymentSuccess />} />
-        <Route path="/payment/fail/:orderId" element={<PaymentFailure />} />
-        <Route path="/myorders" element={<MyOrders />} />
-        <Route path="/moredetails" element={<Moredetails />} />
-      </Routes>
+      <div className="app-main">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/explore" element={<ExploreFood />} />
+          <Route path="/food/:id" element={<FoodDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/order" element={<PlaceOrder />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/payment/success/:orderId"
+            element={<PaymentSuccess />}
+          />
+          <Route path="/payment/fail/:orderId" element={<PaymentFailure />} />
+          <Route path="/myorders" element={<MyOrders />} />
+          <Route path="/moredetails" element={<Moredetails />} />
+          <Route path="/impressum" element={<Impressum />} />
+          <Route path="/datenschutz" element={<Datenschutz />} />
+        </Routes>
+      </div>
+      <Footer />
     </div>
   );
 };

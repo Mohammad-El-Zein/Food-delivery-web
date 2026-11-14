@@ -1,10 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { DEMO_RESTAURANT } from "../../util/demoInfo";
 import "./Contact.css";
 import ScrollReveal from "scrollreveal";
 import { useTranslation } from "react-i18next";
 
 const ContactUs = () => {
   const { t } = useTranslation();
+  // Demo: das Kontaktformular sendet und speichert nichts
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    e.currentTarget.reset();
+    setSent(true);
+  };
 
   useEffect(() => {
     const sr = ScrollReveal({
@@ -37,7 +46,22 @@ const ContactUs = () => {
                 {t("contactPage.formTitle")}
               </h2>
 
-              <form>
+              <div className="contact-demo-info">
+                <h3>{t("contactPage.demoInfoTitle")}</h3>
+                <p>{t("footer.fictionalNote")}</p>
+                <p>
+                  {DEMO_RESTAURANT.street}, {DEMO_RESTAURANT.city}{" "}
+                  {t("footer.fictionalSuffix")}
+                  <br />
+                  {t("footer.phoneLabel")}: {DEMO_RESTAURANT.phone}
+                  <br />
+                  {t("footer.emailLabel")}: {DEMO_RESTAURANT.email}
+                  <br />
+                  {t("footer.hoursLabel")}: {t("footer.hours")}
+                </p>
+              </div>
+
+              <form onSubmit={handleSubmit}>
                 <div className="row g-3">
                   <div className="col-md-6">
                     <input
@@ -78,6 +102,11 @@ const ContactUs = () => {
                   </div>
                 </div>
               </form>
+              {sent && (
+                <p className="contact-demo-notice" role="status">
+                  {t("newsletter.demoNotice")}
+                </p>
+              )}
 
               <div className="contact-signature text-center mt-4">
                 <p className="signature-text">

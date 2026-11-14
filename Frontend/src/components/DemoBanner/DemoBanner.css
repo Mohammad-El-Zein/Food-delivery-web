@@ -1,0 +1,49 @@
+/* Schmaler Hinweis ganz oben. Die feste Navbar rutscht um diese Höhe nach unten. */
+:root {
+  --demo-banner-height: 28px;
+}
+
+@media (max-width: 576px) {
+  :root {
+    --demo-banner-height: 40px;
+  }
+}
+
+.demo-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  height: var(--demo-banner-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  background: #f6ba20;
+  color: #1c1b1b;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+  text-align: center;
+  overflow: hidden;
+}
+
+@media (max-width: 576px) {
+  .demo-banner {
+    font-size: 12px;
+  }
+}
+
+body {
+  padding-top: var(--demo-banner-height) !important;
+}
+
+nav.navbar,
+.navbar {
+  top: var(--demo-banner-height) !important;
+}
+
+.mobile-menu {
+  top: calc(var(--nav-height, 80px) + var(--demo-banner-height)) !important;
+}

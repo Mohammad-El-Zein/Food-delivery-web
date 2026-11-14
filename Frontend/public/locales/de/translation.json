@@ -61,7 +61,10 @@
     "emailPlaceholder": "E-Mail Adresse",
     "phonePlaceholder": "Handynummer",
     "addressPlaceholder": "Straße, Hausnummer, etc.",
-    "zipPlaceholder": "PLZ"
+    "zipPlaceholder": "PLZ",
+    "testModeTitle": "Testmodus:",
+    "testModeText": "Es wird kein echtes Geld abgebucht. Bitte keine echten Kartendaten eingeben, sondern die Stripe-Testkarte",
+    "testModeDetails": "Ablaufdatum: ein beliebiges Datum in der Zukunft, CVC: beliebige drei Ziffern."
   },
   "myorders": {
     "c": "Artikel"
@@ -121,7 +124,8 @@
     "firstNamePlaceholder": "Vorname",
     "lastNamePlaceholder": "Nachname",
     "emailPlaceholder": "E-Mail Adresse",
-    "messagePlaceholder": "Deine Nachricht"
+    "messagePlaceholder": "Deine Nachricht",
+    "demoInfoTitle": "Flavor Haus (Demo) – fiktive Kontaktdaten"
   },
   "modals": {
     "aiEstimateTitle": "Portionsgröße schätzen",
@@ -202,7 +206,8 @@
     "title": "Jetzt abonnieren und 10% Rabatt sichern",
     "subtitle": "Sei der Erste, der die neuesten Neuigkeiten, Aktionen und vieles mehr erhält!",
     "emailPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein",
-    "button": "Abonnieren"
+    "button": "Abonnieren",
+    "demoNotice": "Demo: Es werden keine Daten gespeichert."
   },
   "moreDetails": {
     "back": "Zurück",
@@ -216,29 +221,38 @@
     "p6": "Derzeit beschäftige ich mich intensiv mit <strong>Cloud-Technologien</strong> und bereite mich auf die <strong>Microsoft Azure Fundamentals-Zertifizierung</strong> vor. Langfristig möchte ich mich im Bereich <strong>Cloud- und DevOps-Engineering</strong> spezialisieren, um spannende Projekte in der Softwareentwicklung umzusetzen und mein Wissen kontinuierlich zu erweitern.",
     "p7": "Ich liebe es, Neues zu lernen, Herausforderungen anzunehmen und meine Ideen in funktionierende Software umzusetzen. Auf dieser Website möchte ich nicht nur meine bisherigen Projekte vorstellen, sondern auch zeigen, dass ich motiviert bin, mich fachlich weiterzuentwickeln und praxisnah zu arbeiten."
   },
+  "demoBanner": {
+    "text": "Demo-Projekt – kein echtes Restaurant. Zahlungen laufen im Testmodus."
+  },
   "footer": {
+    "restaurantTitle": "Flavor Haus (Demo)",
+    "fictionalNote": "Fiktives Restaurant – alle Kontaktdaten sind erfunden.",
+    "fictionalSuffix": "(fiktiv)",
+    "phoneLabel": "Telefon",
+    "emailLabel": "E-Mail",
+    "hoursLabel": "Öffnungszeiten",
+    "hours": "Mo–So 11–22 Uhr (fiktiv)",
     "developedBy": "Entwickelt von",
-    "moreAboutMeBtn": "Mehr über mich lesen",
-    "aboutTitle": "Über uns",
-    "aboutText": "Wir sind zwei fleißige Informatik-Studenten der TU Dortmund mit großer Leidenschaft für den IT-Bereich. Dieses Full-Stack-Website haben wir eigenständig mit React, Spring Boot, MongoDB und Stripe umgesetzt und zusätzlich um KI-Funktionalitäten erweitert, um unsere Fähigkeiten weiterzuentwickeln und uns bestmöglich auf den Einstieg in den Arbeitsmarkt vorzubereiten.",
-    "copyright": "© 2025 A&M Flavor Haus. Alle Rechte vorbehalten."
+    "aboutTitle": "Über dieses Projekt",
+    "aboutText": "Flavor Haus ist ein Demo-Projekt von zwei Informatik-Studenten der TU Dortmund. Diese Full-Stack-Website haben wir eigenständig mit React, Spring Boot, MongoDB und Stripe (Testmodus) umgesetzt und um KI-Funktionen erweitert. Es gibt kein echtes Restaurant und keine echten Bestellungen.",
+    "moreAboutUsBtn": "Mehr über uns lesen",
+    "copyright": "© {{year}} Flavor Haus – Demo-Projekt",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz",
+    "legalNav": "Rechtliches"
   },
   "people": {
     "mohammad": {
       "name": "Mohammad El Zein",
       "role": "Informatik Student",
-      "email": "mhmdzein70781311@gmail.com",
       "githubLabel": "Mohammad GitHub",
-      "linkedinLabel": "Mohammad LinkedIn",
-      "whatsappLabel": "Mohammad WhatsApp"
+      "linkedinLabel": "Mohammad LinkedIn"
     },
     "abdullah": {
       "name": "Abdullah Al Qazzaz",
       "role": "Informatik Student",
-      "email": "abood.emad10@yahoo.com",
       "githubLabel": "Abdullah GitHub",
-      "linkedinLabel": "Abdullah LinkedIn",
-      "whatsappLabel": "Abdullah WhatsApp"
+      "linkedinLabel": "Abdullah LinkedIn"
     }
   },
 

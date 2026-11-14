@@ -63,3 +63,28 @@
   color: #555;
   font-style: italic;
 }
+.contact-demo-info {
+  background: #fff6dc;
+  border-inline-start: 4px solid #f6ba20;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+
+.contact-demo-info h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.contact-demo-info p {
+  margin-bottom: 0.4rem;
+}
+
+.contact-demo-notice {
+  margin-top: 1rem;
+  font-weight: 600;
+  text-align: center;
+}

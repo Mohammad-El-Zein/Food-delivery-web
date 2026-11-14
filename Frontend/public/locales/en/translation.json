@@ -60,7 +60,8 @@
     "title": "Subscribe now and get 10% off",
     "subtitle": "Be the first to receive the latest news, offers and more!",
     "emailPlaceholder": "Enter your email address",
-    "button": "Subscribe"
+    "button": "Subscribe",
+    "demoNotice": "Demo: no data is stored."
   },
 
   "cart": {
@@ -96,7 +97,10 @@
     "emailPlaceholder": "Email address",
     "phonePlaceholder": "Phone number",
     "addressPlaceholder": "Street, house number, etc.",
-    "zipPlaceholder": "ZIP code"
+    "zipPlaceholder": "ZIP code",
+    "testModeTitle": "Test mode:",
+    "testModeText": "No real money is charged. Please do not enter real card details; use the Stripe test card",
+    "testModeDetails": "Expiry date: any future date, CVC: any three digits."
   },
 
   "myorders": {
@@ -160,7 +164,8 @@
     "firstNamePlaceholder": "First name",
     "lastNamePlaceholder": "Last name",
     "emailPlaceholder": "Email address",
-    "messagePlaceholder": "Your message"
+    "messagePlaceholder": "Your message",
+    "demoInfoTitle": "Flavor Haus (Demo) – fictional contact details"
   },
 
   "modals": {
@@ -237,30 +242,39 @@
     "showDetails": "View"
   },
 
+  "demoBanner": {
+    "text": "Demo project – not a real restaurant. Payments run in test mode."
+  },
   "footer": {
+    "restaurantTitle": "Flavor Haus (Demo)",
+    "fictionalNote": "Fictional restaurant – all contact details are made up.",
+    "fictionalSuffix": "(fictional)",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "hoursLabel": "Opening hours",
+    "hours": "Mon–Sun 11 am–10 pm (fictional)",
     "developedBy": "Developed by",
-    "moreAboutMeBtn": "Read more about me",
-    "aboutTitle": "About us",
-    "aboutText": "We are two hardworking and ambitious Computer Science students at TU Dortmund University with a strong passion for Information Technology. We independently developed this full-stack website using React, Spring Boot, MongoDB and Stripe, and enhanced it with AI-powered features to further strengthen our technical skills and prepare for our professional careers.",
-    "copyright": "© 2025 A&M Flavor Haus. All rights reserved."
+    "aboutTitle": "About this project",
+    "aboutText": "Flavor Haus is a demo project by two Computer Science students at TU Dortmund University. We built this full-stack website ourselves with React, Spring Boot, MongoDB and Stripe (test mode) and added AI features. There is no real restaurant and no real orders.",
+    "moreAboutUsBtn": "Read more about us",
+    "copyright": "© {{year}} Flavor Haus – Demo project",
+    "imprint": "Legal notice (Impressum)",
+    "privacy": "Privacy policy",
+    "legalNav": "Legal"
   },
 
   "people": {
     "mohammad": {
       "name": "Mohammad El Zein",
       "role": "Computer Science Student",
-      "email": "mhmdzein70781311@gmail.com",
       "githubLabel": "Mohammad GitHub",
-      "linkedinLabel": "Mohammad LinkedIn",
-      "whatsappLabel": "Mohammad WhatsApp"
+      "linkedinLabel": "Mohammad LinkedIn"
     },
     "abdullah": {
       "name": "Abdullah Al Qazzaz",
       "role": "Computer Science Student",
-      "email": "abood.emad10@yahoo.com",
       "githubLabel": "Abdullah GitHub",
-      "linkedinLabel": "Abdullah LinkedIn",
-      "whatsappLabel": "Abdullah WhatsApp"
+      "linkedinLabel": "Abdullah LinkedIn"
     }
   },
 

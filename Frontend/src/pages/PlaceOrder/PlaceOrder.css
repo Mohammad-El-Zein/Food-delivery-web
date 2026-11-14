@@ -21,3 +21,20 @@
   color: #7a7a7a !important;
   cursor: not-allowed;
 }
+.stripe-test-notice {
+  background: #fff6dc;
+  border-inline-start: 4px solid #f6ba20;
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  margin: 0 auto 2rem;
+  max-width: 900px;
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+
+.stripe-test-card {
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 1.05rem;
+  white-space: nowrap;
+}

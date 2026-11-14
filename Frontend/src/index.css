@@ -20,3 +20,14 @@ html,
 body {
   overflow-x: clip;
 }
+
+/* Footer bleibt auch bei kurzen Seiten unten */
+.app-shell {
+  min-height: calc(100vh - var(--demo-banner-height, 0px));
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1 0 auto;
+}

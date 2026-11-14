@@ -92,6 +92,14 @@ const PlaceOrder = () => {
         <h2>{t("placeOrder.title")}</h2>
       </div>
 
+      <div className="stripe-test-notice" role="note">
+        <strong>{t("placeOrder.testModeTitle")}</strong>{" "}
+        {t("placeOrder.testModeText")}{" "}
+        <span className="stripe-test-card">4242 4242 4242 4242</span>
+        <br />
+        <small>{t("placeOrder.testModeDetails")}</small>
+      </div>
+
       <div className="row g-5">
         {/* LEFT FORM */}
         <div className="col-lg-7">
