@@ -231,7 +231,7 @@
     "hours": "Mo–So 11–22 Uhr (fiktiv)",
     "developedBy": "Entwickelt von",
     "aboutTitle": "Über dieses Projekt",
-    "aboutText": "Flavor Haus ist ein Demo-Projekt von zwei Informatik-Studenten der TU Dortmund. Diese Full-Stack-Website haben wir eigenständig mit React, Spring Boot, MongoDB und Stripe (Testmodus) umgesetzt und um KI-Funktionen erweitert. Es gibt kein echtes Restaurant und keine echten Bestellungen.",
+    "aboutText": "Flavor Haus ist ein Demo-Projekt von Mohammad El Zein, Gründer von „Bytelyn Technologies“. Diese Full-Stack-Website habe ich eigenständig mit React, Spring Boot, MongoDB und Stripe (Testmodus) umgesetzt und um KI-Funktionen erweitert. Es gibt kein echtes Restaurant und keine echten Bestellungen.",
     "copyright": "© {{year}} Flavor Haus – Demo-Projekt",
     "imprint": "Impressum",
     "privacy": "Datenschutz",

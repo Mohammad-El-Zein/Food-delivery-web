@@ -252,7 +252,7 @@
     "hours": "Mon–Sun 11 am–10 pm (fictional)",
     "developedBy": "Developed by",
     "aboutTitle": "About this project",
-    "aboutText": "Flavor Haus is a demo project by two Computer Science students at TU Dortmund University. We built this full-stack website ourselves with React, Spring Boot, MongoDB and Stripe (test mode) and added AI features. There is no real restaurant and no real orders.",
+    "aboutText": "Flavor Haus is a demo project by Mohammad El Zein, founder of “Bytelyn Technologies”. I built this full-stack website myself with React, Spring Boot, MongoDB and Stripe (test mode) and added AI features. There is no real restaurant and no real orders.",
     "copyright": "© {{year}} Flavor Haus – Demo project",
     "imprint": "Legal notice (Impressum)",
     "privacy": "Privacy policy",
